@@ -1,13 +1,13 @@
-import { HStack, Icon, Box, Text, Flex, Pressable } from 'native-base';
-import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { Box, HStack, Icon, Pressable, Text } from 'native-base';
+import React from 'react';
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
   EmojiRequest,
-} from '../../notion-types';
+} from '../../lib/notion/types';
 import { useSelectedResult } from '../../stores/selected-result';
-import { useNavigation } from '@react-navigation/native';
 
 interface SearchResultProps {
   title: string;

@@ -1,4 +1,7 @@
-import { BlockObjectRequest, RichTextItemRequest } from '../../notion-types';
+import {
+  BlockObjectRequest,
+  RichTextItemRequest,
+} from '../../lib/notion/types';
 
 export const stringToNotionFormat = (text: string) => {
   const paragraphs = getParagraphs(text);

@@ -3,7 +3,7 @@ import {
   GetDatabaseResponse,
   GetPageResponse,
   SearchResponse as NotionSearchResponse,
-} from '../../notion-types';
+} from '../../lib/notion/types';
 import { useNotionClient } from '../use-notion-client';
 
 export type SearchResponse = Omit<NotionSearchResponse, 'results'> & {

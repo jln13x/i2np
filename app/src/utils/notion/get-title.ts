@@ -1,7 +1,7 @@
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
-} from '../../notion-types';
+} from '../../lib/notion/types';
 import { getEmoji } from './get-emoji';
 
 export const getTitle = (

@@ -1,10 +1,10 @@
-import axios from 'axios';
+import { CreatePageResponse } from '@/lib/notion';
 import { useMutation } from 'react-query';
+import { useNotionClient } from '../../../hooks/use-notion-client';
 import {
   stringToNotionFormat,
   toNotionTitle,
 } from '../../../utils/notion/string-to-notion-format';
-import { useNotionClient } from '../../../hooks/use-notion-client';
 
 interface CreateSubpageParams {
   pageId: string;
@@ -15,7 +15,7 @@ interface CreateSubpageParams {
 export const useCreateSubpage = () => {
   const client = useNotionClient();
 
-  return useMutation<unknown, unknown, CreateSubpageParams>({
+  return useMutation<CreatePageResponse, unknown, CreateSubpageParams>({
     mutationFn: ({ pageId, text, title }) => {
       const textInNotionFormat = stringToNotionFormat(text);
 

@@ -1,7 +1,6 @@
+import { API_URL } from '@env';
 import axios, { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
-import { API_URL } from '@env';
-import { useToast, Alert } from 'native-base';
 
 interface ProcessImageRequest {
   image: string;

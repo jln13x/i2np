@@ -2,11 +2,10 @@ import NetInfo from '@react-native-community/netinfo';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider, theme } from 'native-base';
 import { useEffect } from 'react';
-import { AppState, AppStateStatus, Platform, View } from 'react-native';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   focusManager,
-  MutationCache,
   onlineManager,
   QueryClient,
   QueryClientProvider,

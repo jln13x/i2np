@@ -15,7 +15,6 @@ import { SecondaryButton } from '../components/button/SecondaryButton';
 import { EditSelectedTextModal } from '../components/EditSelectedTextModal';
 import { Layout } from '../components/Layout';
 import { Spinner } from '../components/Spinner';
-import { Textarea } from '../components/Textarea';
 import { TextPreview } from '../components/TextPreview';
 import { useProcessImage } from '../hooks/mutations/use-process-image';
 import { useUser } from '../hooks/queries/use-user';

@@ -2,7 +2,7 @@ import create from 'zustand';
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
-} from '../notion-types';
+} from '../lib/notion/types';
 
 type SelectedResult =
   | CustomGetPageResponseDetailed

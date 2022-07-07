@@ -1,4 +1,4 @@
-import { CustomGetDatabaseResponseDetailed } from '../../notion-types';
+import { CustomGetDatabaseResponseDetailed } from '../../lib/notion/types';
 import { getTitle } from '../../utils/notion/get-title';
 import { SearchResult } from './SearchResult';
 

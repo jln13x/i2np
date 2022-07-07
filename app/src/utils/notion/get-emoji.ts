@@ -1,7 +1,7 @@
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
-} from '../../notion-types';
+} from '../../lib/notion/types';
 
 export const getEmoji = (
   pageOrDatabase:

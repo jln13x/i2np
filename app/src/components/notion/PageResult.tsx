@@ -1,4 +1,4 @@
-import { CustomGetPageResponseDetailed } from '../../notion-types';
+import { CustomGetPageResponseDetailed } from '../../lib/notion/types';
 import { getTitle } from '../../utils/notion/get-title';
 import { SearchResult } from './SearchResult';
 

@@ -6,8 +6,8 @@ import { NoResultsFound } from '../components/NoResultsFound';
 import { SearchResults } from '../components/notion/SearchResults';
 import { Spinner } from '../components/Spinner';
 import { useSearch } from '../hooks/queries/use-search';
-import { useSelectedText } from '../stores/selected-text';
 import { useDebounce } from '../hooks/use-debounce';
+import { useSelectedText } from '../stores/selected-text';
 
 export const NotionScreen = ({}) => {
   const [search, setSearch] = useState('');

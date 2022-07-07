@@ -1,16 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
-  Box,
-  Button,
-  Icon,
-  Link,
-  ScrollView,
-  Text,
-  useDisclose,
-  VStack,
+  Box, Icon, Text, VStack
 } from 'native-base';
-import { Linking } from 'react-native';
 import { PrimaryButton } from '../components/button/PrimaryButton';
 import { EditSelectedTextModal } from '../components/EditSelectedTextModal';
 import { Layout } from '../components/Layout';
@@ -27,7 +19,7 @@ export const ResultScreen = () => {
   const { isLoading: isAddingPage, mutate: addTextToPage } = useAddToPage();
 
   if (!selectedResult || !selectedText) {
-    navigate('Home');
+    navigate('Image');
     return null;
   }
 

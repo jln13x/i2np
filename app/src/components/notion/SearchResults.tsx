@@ -1,10 +1,10 @@
 import { VStack } from 'native-base';
 import React from 'react';
 import {
-  SearchResponse,
-  CustomGetPageResponseDetailed,
   CustomGetDatabaseResponseDetailed,
-} from '../../notion-types';
+  CustomGetPageResponseDetailed,
+  SearchResponse,
+} from '../../lib/notion/types';
 import { isDetailedDatabase } from '../../utils/notion/is-detailed-database';
 import { isDetailedPage } from '../../utils/notion/is-detailed-page';
 import { DatabaseResult } from './DatabaseResult';

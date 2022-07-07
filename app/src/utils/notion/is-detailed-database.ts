@@ -1,7 +1,7 @@
 import {
   CustomGetDatabaseResponseDetailed,
   GetDatabaseResponse,
-} from '../../notion-types';
+} from '../../lib/notion/types';
 
 export const isDetailedDatabase = (
   database: GetDatabaseResponse

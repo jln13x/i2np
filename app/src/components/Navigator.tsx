@@ -1,10 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Center } from 'native-base';
 import { useAccessToken } from '../hooks/queries/use-access-token';
-import { useSelectedResult } from '../stores/selected-result';
 import { CreateSubpageScreen } from '../screens/CreateSubpage';
-import { HomeScreen } from '../screens/HomeScreen';
 import { ImageScreen } from '../screens/ImageScreen';
+import { LoginScreen as LoginScreen } from '../screens/LoginScreen';
 import { NotionScreen } from '../screens/NotionScreen';
 import { ResultScreen } from '../screens/ResultScreen';
 import { Layout } from './Layout';
@@ -13,7 +12,7 @@ import { Spinner } from './Spinner';
 declare global {
   namespace ReactNavigation {
     interface RootParamList {
-      Home: undefined;
+      Login: undefined;
       Image: undefined;
       Notion: undefined;
       Result: undefined;
@@ -28,8 +27,6 @@ export const Navigator = ({}) => {
   const { data: accessToken, isLoading: isLoadingAccessToken } =
     useAccessToken();
 
-  const { selectedResult } = useSelectedResult();
-
   if (isLoadingAccessToken)
     return (
       <Layout>
@@ -43,8 +40,8 @@ export const Navigator = ({}) => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Login"
+          component={LoginScreen}
           options={{
             headerShown: false,
           }}
@@ -55,13 +52,6 @@ export const Navigator = ({}) => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="CreateSubpage"
-        component={CreateSubpageScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen
         name="Image"
         component={ImageScreen}
@@ -79,6 +69,13 @@ export const Navigator = ({}) => {
       <Stack.Screen
         name="Result"
         component={ResultScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CreateSubpage"
+        component={CreateSubpageScreen}
         options={{
           headerShown: false,
         }}
