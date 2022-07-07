@@ -1,11 +1,11 @@
-import { AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI } from "@env";
-import { useAuthRequest } from "expo-auth-session";
-import { Button, Text } from "native-base";
-import { useEffect } from "react";
-import { Layout } from "../components/Layout";
-import { NotionIcon } from "../components/NotionIcon";
-import { useGetAccessTokenWithCode } from "../hooks/mutations/use-get-access-token-with-code";
-import { useSetAccessToken } from "../hooks/mutations/use-set-access-token";
+import { AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI } from '@env';
+import { useAuthRequest } from 'expo-auth-session';
+import { Button, Text } from 'native-base';
+import { useEffect } from 'react';
+import { Layout } from '../components/Layout';
+import { NotionIcon } from '../components/NotionIcon';
+import { useGetAccessTokenWithCode } from '../hooks/mutations/use-get-access-token-with-code';
+import { useSetAccessToken } from '../hooks/mutations/use-set-access-token';
 
 export const HomeScreen = ({}) => {
   const {
@@ -22,9 +22,9 @@ export const HomeScreen = ({}) => {
     {
       clientId: CLIENT_ID,
       redirectUri: REDIRECT_URI,
-      responseType: "code",
+      responseType: 'code',
       extraParams: {
-        owner: "user",
+        owner: 'user',
       },
     },
     {
@@ -40,7 +40,7 @@ export const HomeScreen = ({}) => {
 
   useEffect(() => {
     if (accessToken || isGettingAccessToken || error) return;
-    if (response?.type !== "success") return;
+    if (response?.type !== 'success') return;
 
     getAccessToken({ code: response.params.code });
   }, [response]);

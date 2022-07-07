@@ -1,11 +1,11 @@
-import Svg, { G, Path } from "react-native-svg";
+import Svg, { G, Path } from 'react-native-svg';
 
 interface NotionIconProps {
-  pathColor?: "white" | "black";
+  pathColor?: 'white' | 'black';
 }
 
 export const NotionIcon: React.FC<NotionIconProps> = ({
-  pathColor = "black",
+  pathColor = 'black',
 }) => {
   return (
     <Svg

@@ -1,4 +1,4 @@
-import { ITextAreaProps, TextArea } from "native-base";
+import { ITextAreaProps, TextArea } from 'native-base';
 
 export const Textarea: React.FC<ITextAreaProps> = (props) => {
   return (
@@ -7,9 +7,9 @@ export const Textarea: React.FC<ITextAreaProps> = (props) => {
       multiline
       spellCheck={false}
       _focus={{
-        bg: "gray.100",
-        borderColor: "indigo.400",
-        selectionColor: "indigo.100",
+        bg: 'gray.100',
+        borderColor: 'indigo.400',
+        selectionColor: 'indigo.100',
       }}
       {...props}
     />

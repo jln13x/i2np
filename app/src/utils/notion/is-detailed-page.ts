@@ -1,7 +1,7 @@
 import {
   GetPageResponse,
   CustomGetPageResponseDetailed,
-} from "../../notion-types";
+} from '../../notion-types';
 
 export const isDetailedPage = (
   page: GetPageResponse

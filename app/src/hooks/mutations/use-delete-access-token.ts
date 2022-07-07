@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from "react-query";
-import * as SecureStore from "expo-secure-store";
+import { useMutation, useQueryClient } from 'react-query';
+import * as SecureStore from 'expo-secure-store';
 import {
   ACCESS_TOKEN_KEY,
   queryKey as accessTokenQueryKey,
-} from "../queries/use-access-token";
+} from '../queries/use-access-token';
 
 export const useDeleteAccessToken = () => {
   const queryClient = useQueryClient();

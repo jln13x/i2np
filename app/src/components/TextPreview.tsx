@@ -1,4 +1,4 @@
-import { ScrollView, Text } from "native-base";
+import { ScrollView, Text } from 'native-base';
 
 interface TextPreviewProps {
   text: string;

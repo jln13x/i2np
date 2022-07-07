@@ -1,7 +1,7 @@
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
-} from "../../notion-types";
+} from '../../notion-types';
 
 export const getEmoji = (
   pageOrDatabase:
@@ -10,7 +10,7 @@ export const getEmoji = (
 ) => {
   const icon = pageOrDatabase.icon;
 
-  if (!icon || icon.type !== "emoji") return null;
+  if (!icon || icon.type !== 'emoji') return null;
 
   return icon?.emoji || null;
 };

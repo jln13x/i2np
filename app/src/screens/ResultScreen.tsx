@@ -1,5 +1,5 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import {
   Box,
   Button,
@@ -9,37 +9,29 @@ import {
   Text,
   useDisclose,
   VStack,
-} from "native-base";
-import { Linking } from "react-native";
-import { PrimaryButton } from "../components/button/PrimaryButton";
-import { EditSelectedTextModal } from "../components/EditSelectedTextModal";
-import { Layout } from "../components/Layout";
-import { TextPreview } from "../components/TextPreview";
-import { useAddToPage } from "../hooks/mutations/use-add-to-page";
-import { useCreateSubpage } from "../hooks/mutations/use-create-subpage";
-import { useAccessToken } from "../hooks/queries/use-access-token";
-import { useUser } from "../hooks/queries/use-user";
-import { useSelectedResult } from "../hooks/stores/use-selected-result";
-import { useSelectedText } from "../hooks/stores/use-selected-text";
-import { getTitle } from "../utils/notion/get-title";
+} from 'native-base';
+import { Linking } from 'react-native';
+import { PrimaryButton } from '../components/button/PrimaryButton';
+import { EditSelectedTextModal } from '../components/EditSelectedTextModal';
+import { Layout } from '../components/Layout';
+import { TextPreview } from '../components/TextPreview';
+import { useAddToPage } from '../hooks/mutations/use-add-to-page';
+import { useSelectedResult } from '../stores/selected-result';
+import { useSelectedText } from '../stores/selected-text';
+import { getTitle } from '../utils/notion/get-title';
 
 export const ResultScreen = () => {
   const { selectedResult } = useSelectedResult();
   const { selectedText } = useSelectedText();
   const { navigate } = useNavigation();
   const { isLoading: isAddingPage, mutate: addTextToPage } = useAddToPage();
-  const {
-    data: createSubpageResponse,
-    isLoading: isCreatingSubpage,
-    mutate: createSubpage,
-  } = useCreateSubpage();
 
   if (!selectedResult || !selectedText) {
-    navigate("Home");
+    navigate('Home');
     return null;
   }
 
-  if (selectedResult.object === "database") {
+  if (selectedResult.object === 'database') {
     return null;
   }
 
@@ -52,14 +44,10 @@ export const ResultScreen = () => {
     });
   };
 
-  const createNewSubpage = () => {
-    createSubpage({
-      pageId: selectedResult.id,
-      text: selectedText,
-    });
+  const redirectToCreateSubpage = () => {
+    navigate('CreateSubpage');
+    return;
   };
-
-  const isDisabled = isAddingPage || isCreatingSubpage;
 
   return (
     <Layout>
@@ -80,7 +68,7 @@ export const ResultScreen = () => {
               <Icon as={MaterialCommunityIcons} name="plus" size="lg" />
             }
             onPress={addToPage}
-            isDisabled={isDisabled}
+            isDisabled={isAddingPage}
             isLoading={isAddingPage}
           >
             Add to page
@@ -93,16 +81,12 @@ export const ResultScreen = () => {
                 name="text-box-multiple-outline"
               />
             }
-            isDisabled={isDisabled}
-            onPress={createNewSubpage}
-            isLoading={isCreatingSubpage}
+            isDisabled={isAddingPage}
+            onPress={redirectToCreateSubpage}
           >
             Create new subpage
           </PrimaryButton>
         </VStack>
-        {/* {createSubpageResponse && (
-          <Link href={createSubpageResponse.url}>asd</Link>
-        )} */}
       </Box>
     </Layout>
   );

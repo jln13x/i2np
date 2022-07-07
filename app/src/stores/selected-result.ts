@@ -1,8 +1,8 @@
-import create from "zustand";
+import create from 'zustand';
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
-} from "../../notion-types";
+} from '../notion-types';
 
 type SelectedResult =
   | CustomGetPageResponseDetailed

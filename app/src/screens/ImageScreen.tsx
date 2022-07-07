@@ -1,25 +1,25 @@
-import { Feather, MaterialIcons } from "@expo/vector-icons";
-import { GetSelfResponse } from "@notionhq/client/build/src/api-endpoints";
-import { useNavigation } from "@react-navigation/native";
+import { Feather, MaterialIcons } from '@expo/vector-icons';
+import { GetSelfResponse } from '@notionhq/client/build/src/api-endpoints';
+import { useNavigation } from '@react-navigation/native';
 import {
   ImageInfo,
   ImagePickerOptions,
   launchCameraAsync,
   launchImageLibraryAsync,
   MediaTypeOptions,
-} from "expo-image-picker";
-import { Box, Button, Flex, HStack, Icon, Text, VStack } from "native-base";
-import { useEffect, useState } from "react";
-import { PrimaryButton } from "../components/button/PrimaryButton";
-import { SecondaryButton } from "../components/button/SecondaryButton";
-import { EditSelectedTextModal } from "../components/EditSelectedTextModal";
-import { Layout } from "../components/Layout";
-import { Spinner } from "../components/Spinner";
-import { Textarea } from "../components/Textarea";
-import { TextPreview } from "../components/TextPreview";
-import { useProcessImage } from "../hooks/mutations/use-process-image";
-import { useUser } from "../hooks/queries/use-user";
-import { useSelectedText } from "../hooks/stores/use-selected-text";
+} from 'expo-image-picker';
+import { Box, Button, Flex, HStack, Icon, Text, VStack } from 'native-base';
+import { useEffect, useState } from 'react';
+import { PrimaryButton } from '../components/button/PrimaryButton';
+import { SecondaryButton } from '../components/button/SecondaryButton';
+import { EditSelectedTextModal } from '../components/EditSelectedTextModal';
+import { Layout } from '../components/Layout';
+import { Spinner } from '../components/Spinner';
+import { Textarea } from '../components/Textarea';
+import { TextPreview } from '../components/TextPreview';
+import { useProcessImage } from '../hooks/mutations/use-process-image';
+import { useUser } from '../hooks/queries/use-user';
+import { useSelectedText } from '../stores/selected-text';
 
 const imagePickerOptions: ImagePickerOptions = {
   mediaTypes: MediaTypeOptions.Images,
@@ -75,7 +75,7 @@ export const ImageScreen = () => {
   };
 
   const goToNotionScreen = () => {
-    navigate("Notion");
+    navigate('Notion');
   };
 
   const goBack = () => {
@@ -186,7 +186,7 @@ export const ImageScreen = () => {
       <Flex>
         <Box>
           <Text fontSize="xl" fontWeight={700}>
-            {username ? `Welcome ${username}!` : "Welcome!"}
+            {username ? `Welcome ${username}!` : 'Welcome!'}
           </Text>
           <Text fontSize="sm">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
@@ -209,9 +209,9 @@ export const ImageScreen = () => {
 const getUsername = (data?: GetSelfResponse): string | null => {
   if (
     data &&
-    data.type == "bot" &&
-    data.bot.owner.type === "user" &&
-    data.bot.owner.user.object === "user"
+    data.type == 'bot' &&
+    data.bot.owner.type === 'user' &&
+    data.bot.owner.user.object === 'user'
   ) {
     // @ts-ignore
     const name = data.bot.owner.user.name;

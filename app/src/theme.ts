@@ -1,7 +1,7 @@
-import { extendTheme } from "native-base";
+import { extendTheme } from 'native-base';
 
 export const theme = extendTheme({
   config: {
-    initialColorMode: "light",
+    initialColorMode: 'light',
   },
 });

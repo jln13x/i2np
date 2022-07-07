@@ -1,10 +1,4 @@
-import {
-  BlockObjectRequest,
-  CreatePageBodyParameters,
-  RichTextItemRequest,
-} from "../../notion-types";
-
-type Foo = Array<BlockObjectRequest>;
+import { BlockObjectRequest, RichTextItemRequest } from '../../notion-types';
 
 export const stringToNotionFormat = (text: string) => {
   const paragraphs = getParagraphs(text);
@@ -24,7 +18,7 @@ export const getParagraphs = (text: string) => {
 
 export const toNotionParagraph = (text: string): BlockObjectRequest => {
   return {
-    type: "paragraph",
+    type: 'paragraph',
     paragraph: {
       rich_text: [
         {
@@ -39,15 +33,15 @@ export const toNotionParagraph = (text: string): BlockObjectRequest => {
 
 type Title =
   | RichTextItemRequest[]
-  | { title: RichTextItemRequest[]; type?: "title" | undefined }
+  | { title: RichTextItemRequest[]; type?: 'title' | undefined }
   | undefined;
 
 export const toNotionTitle = (title: string): Title => {
   return {
-    type: "title",
+    type: 'title',
     title: [
       {
-        type: "text",
+        type: 'text',
         text: {
           content: title,
         },

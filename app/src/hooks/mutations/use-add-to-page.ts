@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useMutation } from "react-query";
-import { stringToNotionFormat } from "../../utils/notion/string-to-notion-format";
-import { useNotionClient } from "../use-notion-client";
+import axios from 'axios';
+import { useMutation } from 'react-query';
+import { stringToNotionFormat } from '../../utils/notion/string-to-notion-format';
+import { useNotionClient } from '../use-notion-client';
 
 interface AddToPageParams {
   pageId: string;

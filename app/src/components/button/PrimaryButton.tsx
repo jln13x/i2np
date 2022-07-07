@@ -1,4 +1,4 @@
-import { Button, IButtonProps } from "native-base";
+import { Button, IButtonProps } from 'native-base';
 
 export const PrimaryButton: React.FC<IButtonProps> = ({
   children,

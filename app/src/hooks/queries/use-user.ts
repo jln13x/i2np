@@ -1,12 +1,12 @@
-import { Client } from "@notionhq/client";
-import { useQuery } from "react-query";
-import { useAccessToken } from "./use-access-token";
+import { Client } from '@notionhq/client';
+import { useQuery } from 'react-query';
+import { useAccessToken } from './use-access-token';
 
 export const useUser = () => {
   const { data: token } = useAccessToken();
 
   return useQuery({
-    queryKey: "user",
+    queryKey: 'user',
     queryFn: async () => {
       if (!token) return;
 

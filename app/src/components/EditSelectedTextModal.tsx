@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   Button,
   Icon,
@@ -6,11 +6,11 @@ import {
   ScrollView,
   Text,
   useDisclose,
-} from "native-base";
-import React, { useEffect, useRef } from "react";
-import { useSelectedText } from "../hooks/stores/use-selected-text";
-import { PrimaryButton } from "./button/PrimaryButton";
-import { Textarea } from "./Textarea";
+} from 'native-base';
+import React, { useEffect, useRef } from 'react';
+import { useSelectedText } from '../stores/selected-text';
+import { PrimaryButton } from './button/PrimaryButton';
+import { Textarea } from './Textarea';
 
 export const EditSelectedTextModal: React.FC = () => {
   const { selectedText, setSelectedText } = useSelectedText();

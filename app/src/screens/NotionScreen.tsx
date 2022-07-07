@@ -1,16 +1,16 @@
-import { useNavigation } from "@react-navigation/native";
-import { Box, Input, Text } from "native-base";
-import { useState } from "react";
-import { Layout } from "../components/Layout";
-import { NoResultsFound } from "../components/NoResultsFound";
-import { SearchResults } from "../components/notion/SearchResults";
-import { Spinner } from "../components/Spinner";
-import { useSearch } from "../hooks/queries/use-search";
-import { useSelectedText } from "../hooks/stores/use-selected-text";
-import { useDebounce } from "../hooks/use-debounce";
+import { useNavigation } from '@react-navigation/native';
+import { Box, Input, Text } from 'native-base';
+import { useState } from 'react';
+import { Layout } from '../components/Layout';
+import { NoResultsFound } from '../components/NoResultsFound';
+import { SearchResults } from '../components/notion/SearchResults';
+import { Spinner } from '../components/Spinner';
+import { useSearch } from '../hooks/queries/use-search';
+import { useSelectedText } from '../stores/selected-text';
+import { useDebounce } from '../hooks/use-debounce';
 
 export const NotionScreen = ({}) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const debounce = useDebounce();
   const {
     data: searchResponse,
@@ -21,7 +21,7 @@ export const NotionScreen = ({}) => {
   const { navigate } = useNavigation();
 
   if (!selectedText) {
-    navigate("Image");
+    navigate('Image');
     return null;
   }
 
@@ -37,7 +37,7 @@ export const NotionScreen = ({}) => {
     <Layout>
       <Input
         placeholder="Search for a page or database..."
-        _focus={{ borderColor: "indigo.400", bg: "gray.50" }}
+        _focus={{ borderColor: 'indigo.400', bg: 'gray.50' }}
         onChangeText={onSearchChange}
         rightElement={isLoading ? <Spinner mr={2} /> : undefined}
       />

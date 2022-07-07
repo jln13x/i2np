@@ -1,14 +1,14 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Center } from "native-base";
-import { useAccessToken } from "../hooks/queries/use-access-token";
-import { useSelectedResult } from "../hooks/stores/use-selected-result";
-import { useSelectedText } from "../hooks/stores/use-selected-text";
-import { HomeScreen } from "../screens/HomeScreen";
-import { ImageScreen } from "../screens/ImageScreen";
-import { NotionScreen } from "../screens/NotionScreen";
-import { ResultScreen } from "../screens/ResultScreen";
-import { Layout } from "./Layout";
-import { Spinner } from "./Spinner";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Center } from 'native-base';
+import { useAccessToken } from '../hooks/queries/use-access-token';
+import { useSelectedResult } from '../stores/selected-result';
+import { CreateSubpageScreen } from '../screens/CreateSubpage';
+import { HomeScreen } from '../screens/HomeScreen';
+import { ImageScreen } from '../screens/ImageScreen';
+import { NotionScreen } from '../screens/NotionScreen';
+import { ResultScreen } from '../screens/ResultScreen';
+import { Layout } from './Layout';
+import { Spinner } from './Spinner';
 
 declare global {
   namespace ReactNavigation {
@@ -17,6 +17,7 @@ declare global {
       Image: undefined;
       Notion: undefined;
       Result: undefined;
+      CreateSubpage: undefined;
     }
   }
 }
@@ -54,6 +55,13 @@ export const Navigator = ({}) => {
 
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="CreateSubpage"
+        component={CreateSubpageScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Image"
         component={ImageScreen}

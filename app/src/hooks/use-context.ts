@@ -1,4 +1,4 @@
-import { Context, useContext as useReactContext } from "react";
+import { Context, useContext as useReactContext } from 'react';
 
 export const useContext = <T>(context: Context<T | undefined>): T => {
   const ctx = useReactContext(context);

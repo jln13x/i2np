@@ -1,13 +1,13 @@
-import { HStack, Icon, Box, Text, Flex, Pressable } from "native-base";
-import React from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { HStack, Icon, Box, Text, Flex, Pressable } from 'native-base';
+import React from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   CustomGetDatabaseResponseDetailed,
   CustomGetPageResponseDetailed,
   EmojiRequest,
-} from "../../notion-types";
-import { useSelectedResult } from "../../hooks/stores/use-selected-result";
-import { useNavigation } from "@react-navigation/native";
+} from '../../notion-types';
+import { useSelectedResult } from '../../stores/selected-result';
+import { useNavigation } from '@react-navigation/native';
 
 interface SearchResultProps {
   title: string;
@@ -15,12 +15,12 @@ interface SearchResultProps {
 }
 
 interface Database {
-  type: "database";
+  type: 'database';
   data: CustomGetDatabaseResponseDetailed;
 }
 
 interface Page {
-  type: "page";
+  type: 'page';
   data: CustomGetPageResponseDetailed;
 }
 
@@ -30,14 +30,14 @@ export const SearchResult: React.FC<SearchResultProps & (Database | Page)> = ({
   emoji,
   data,
 }) => {
-  const iconName = type === "database" ? "database" : "file-document";
+  const iconName = type === 'database' ? 'database' : 'file-document';
 
   const { setSelectedResult } = useSelectedResult();
   const { navigate } = useNavigation();
 
   const onSearchResultPress = () => {
     setSelectedResult(data);
-    navigate("Result");
+    navigate('Result');
   };
 
   return (
@@ -52,7 +52,7 @@ export const SearchResult: React.FC<SearchResultProps & (Database | Page)> = ({
           px={2}
           alignItems="center"
           space={2}
-          bg={isPressed ? "gray.100" : "white"}
+          bg={isPressed ? 'gray.100' : 'white'}
         >
           <Box p={1.5} bg="indigo.600" rounded="full">
             <Icon

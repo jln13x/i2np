@@ -1,5 +1,5 @@
-import { Center, Container, Heading, Text } from "native-base";
-import React, { PropsWithChildren } from "react";
+import { Center, Container, Heading, Text } from 'native-base';
+import React, { PropsWithChildren } from 'react';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -8,4 +8,3 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     </Center>
   );
 };
- 
