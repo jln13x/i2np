@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "essential-wares-354319",
+  "private_key_id": "cc229e99e4c637a7f08a062c626d3636bdaa272c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD6NKdePF2b+992\n/+d9k4IyqSBCugvXN72HrYbL6ycyFqa0lbMlqqY2EqJWsc5jk2TrboaNL+GpNBLs\na5rRh6kfV7/Br0E4MVEF2h5zzOysURZ0x4/hERnf5zbdp5j6u36WFJNL4psktmHi\ndfGwbz5DpNZEJho2G3hZLMRfHvh0H+guZ33/NL147uZGMXhdpXx3oh6Tj51UmBWt\nMl8bCeOiQEHqK+36D59yMcMTgqJXnRAcSRARZAqbuFD05ywPDr/OYoD7YO4iGBdF\nysVAQ4I/+tl0S6bKeOXwrKw1EMoxLu1akA+UbhmC+fuV06L9/riYKEvcXhWOSjmH\nEfOTiTrnAgMBAAECggEAALe98ytBKX1jerfpNhcCPJr3mLln50olpQn+ZP9bsW0X\nNVVomicPKwCKrqz75pU5qOM8R5NnllCr7TmxzAAToB9kUW3rRfn+PYIOrE5eL3Bc\nHCGmbALcjCPhqGkeqzl2d3+/nGwd/dD4Huovs03eY9tJMhDZ6mXRxo+2UH+KPusH\nD7+opr8wGnblR3iaZz5MIuN8H/qSGPuWnwDqvXT3jDxAXd+vzEVj3l9IynX/yKpm\n9RlcQNWFDDD+hphKWrhw/6SKKHGBXhtrnDXGvwO+IkckCozPZBmlJ/Q2VohaXj4/\n1xkKWX6egLp3Ica6B6ugpDWYalUxhB8hBImyCXLN4QKBgQD/FBFnolKIuMGL4Jp+\nwkaNhuK7gTfM4ZS7Ar6ou0PQ66XoCZHq7lJpZDEoVIDvTKftK+sCJ1KStSMcyt0i\n7/5sJJKDnlMt4K+SThotNn/5U2mmAMHTb7WPNyJxgYjitoGsiGIWkk1Yd1QVXlCu\nQULZ2oRVOffl0kY0RfEx3t3ldQKBgQD7HBQuUjV5TyhBYwbOPdIpPYTQvPhkHwPk\nwN5GNJkhap76Y0CWKs1cgYnqEls9B/sYuXdyamCbssf4zw4wmIiKBFBC1VeKUKz9\nTPNgfjRamSEbXJeF3BNUjBosEei4XpoTaX20MdSAkn/2Om1uv+x3eTuflVCa4UPU\nr9D+yU+nawKBgQCognppC0wY9G0wWgXWXcO8NXLNyjSxzgiybsLDt0q61yI4IzJZ\nkG2zIDR1XzX6YJrDTPMo7g9XygBTQhVKwl9C0/pSpyJuOXPjZGNYoRtz+83ck714\nT+ESpqrDb36dv1H1R/f8z1P3cIWExFTqeUSPpRMtNml1Uy970wTfHEtdDQKBgBt1\nAIfoGUzAaQhtSYs3m0lDHsisQQTBl21l4WgPzEapH+UFAUTqPTZGO8xKYYuU2dHk\nRblPBG1B6Te9fDG4HAXrXtNP/Jh1JdU0mtAMPLFDWSliwHa0j7CI+TukYav3PCWv\nPT18zV2Zp0BHNzwK5FJUAT771qp4wy/4YYPag0ktAoGAYgbyvyQ/vuQD5C4DrEAz\nN+P5zvRrGB92KCMbK6UlcIZ2GFHyBvAWAop1U6t6D8vQ04yqioLmu5Ty99eQ9xsT\naW1lDNP3ipFSjqPz3EpKUo+Yg42CIkJOgFifKca2B/ObNPHRH25G54E+49qBJHF6\ncYWepuXv7IhRIxEgsFf7CBM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "julian@essential-wares-354319.iam.gserviceaccount.com",
+  "client_id": "104566814684933006316",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/julian%40essential-wares-354319.iam.gserviceaccount.com"
+}
