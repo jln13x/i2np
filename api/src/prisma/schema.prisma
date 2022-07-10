@@ -1,0 +1,35 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id        String    @id @unique @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  accounts  Account[]
+}
+
+model Account {
+  id           String @id @unique @default(cuid())
+  accountId    String @unique
+  access_token String @db.Text
+  email        String
+
+  // The ID of the workspace where this authorization took place.
+  workspaceId      String
+  workspaceName    String?
+  workspaceIconUrl String?
+
+  // An identifier for this authorization.
+  botId String
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+}

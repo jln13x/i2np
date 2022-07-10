@@ -48,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/jest": "^28.1.4",
+    "@types/morgan": "^1.9.3",
     "@types/react": "^18.0.14",
     "@types/react-native": "~0.66.13",
     "@types/react-native-dotenv": "^0.2.0",

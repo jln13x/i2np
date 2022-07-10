@@ -2879,6 +2879,13 @@
   "resolved" "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.182.tgz"
   "version" "4.14.182"
 
+"@types/morgan@^1.9.3":
+  "integrity" "sha512-BiLcfVqGBZCyNCnCH3F4o2GmDLrpy0HeBVnNlyZG4fo88ZiE9SoiBe3C+2ezuwbjlEyT+PDZ17//TAlRxAn75Q=="
+  "resolved" "https://registry.npmjs.org/@types/morgan/-/morgan-1.9.3.tgz"
+  "version" "1.9.3"
+  dependencies:
+    "@types/node" "*"
+
 "@types/node-fetch@^2.5.10":
   "integrity" "sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A=="
   "resolved" "https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.2.tgz"

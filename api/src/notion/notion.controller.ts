@@ -5,8 +5,8 @@ import axios from 'axios';
 export class NotionController {
   @Get('/access-token')
   async getAccessToken(@Query('code') code: string) {
-    const notionTokenEndpoint = process.env.NOTION_TOKEN_ENDPOINT;
-    const redirectUri = process.env.NOTION_REDIRECT_URI;
+    const notionTokenEndpoint = process.env.NOTION_TOKEN_ENDPOINT || '';
+    const redirectUri = process.env.NOTION_REDIRECT_URI || '';
 
     const auth = Buffer.from(
       `${process.env.NOTION_CLIENT_ID}:${process.env.NOTION_CLIENT_SECRET}`,

@@ -1,6 +1,6 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { ProcessImageService } from './process-image.service';
-import { ProcessImageRequest } from './ProcessImageRequest';
+import { ProcessImageInput } from './process-image.input';
 
 @Controller('/ocr')
 export class OcrController {
@@ -8,7 +8,7 @@ export class OcrController {
 
   @Post('/process-image')
   async processImage(
-    @Body(ValidationPipe) processImageRequest: ProcessImageRequest,
+    @Body(ValidationPipe) processImageRequest: ProcessImageInput,
   ) {
     return this.processImageService.processImage(processImageRequest);
   }

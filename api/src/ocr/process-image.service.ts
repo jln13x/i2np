@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OcrService, OCR_SERVICE } from './external/ocr-service';
-import { ProcessImageRequest } from './ProcessImageRequest';
+import { ProcessImageInput } from './process-image.input';
 
 @Injectable()
 export class ProcessImageService {
@@ -9,7 +9,7 @@ export class ProcessImageService {
     private readonly ocrService: OcrService,
   ) {}
 
-  async processImage(processImageRequest: ProcessImageRequest) {
+  async processImage(processImageRequest: ProcessImageInput) {
     return this.ocrService.processImage(processImageRequest.base64Image);
   }
 

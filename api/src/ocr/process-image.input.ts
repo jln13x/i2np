@@ -1,6 +1,6 @@
 import { IsBase64 } from 'class-validator';
 
-export class ProcessImageRequest {
+export class ProcessImageInput {
   @IsBase64()
-  base64Image: string;
+  base64Image!: string;
 }

@@ -42,7 +42,9 @@ export const LoginScreen = ({}) => {
     if (accessToken || isGettingAccessToken || error) return;
     if (response?.type !== 'success') return;
 
-    getAccessToken({ code: response.params.code });
+    console.log(response);
+    return;
+    // getAccessToken({ code: response.params.code });
   }, [response]);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export const LoginScreen = ({}) => {
 
   return (
     <Layout>
-      <NotionButton text="Login with Notion" />
+      <NotionButton text="Login with Notion" onPress={loginWithNotion} />
       {isGettingAccessToken && (
         <Text
           fontSize="lg"

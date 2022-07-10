@@ -27,16 +27,16 @@ export class VisionService implements OcrService {
 
     if (!textAnnotations) return null;
 
-    const detectedText = textAnnotations.shift().description;
+    const detectedText = textAnnotations.shift()?.description;
+
+    if (!detectedText) return null;
 
     const textNodes: OcrResponse['textNodes'] = [];
     for (const node of textAnnotations) {
-      const {
-        boundingPoly: { vertices },
-        description,
-      } = node;
+      const vertices = node.boundingPoly?.vertices;
+      const description = node.description;
 
-      if (!vertices) continue;
+      if (!vertices || !description) continue;
 
       const validVertices = vertices.filter(
         (vertex) => vertex.x && vertex.y,
