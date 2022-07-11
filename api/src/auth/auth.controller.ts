@@ -1,30 +1,17 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  ValidationPipe,
-} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginInput } from './login.input';
+import { LoginInput } from './login/login.input';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('/login')
   async login(@Body(ValidationPipe) input: LoginInput) {
-    return await this.authService.login(input);
-  }
+    const jwt = await this.authService.login(input);
 
-  @Get('/foo/:id')
-  async foo(@Param('id') id: string) {
-    const test = 'foo';
-    return this.jwtService.sign({ sub: test }, {});
+    return {
+      jwt,
+    };
   }
 }

@@ -8,7 +8,5 @@ export const useNotionClient = () => {
     throw new Error('No token found!');
   }
 
-  return new Client({
-    auth: token,
-  });
+  return new Client({});
 };

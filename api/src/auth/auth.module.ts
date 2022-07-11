@@ -1,17 +1,29 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { NotionService } from 'notion/notion.service';
+import { PrismaModule } from 'prisma/prisma.module';
+import { UserModule } from 'user/user.module';
+import { AccessTokenEncryptionService } from './access-token-encryption.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { jwtSecret } from './constants';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
     PrismaModule,
     JwtModule.register({
-      secret: 'secretKey',
+      secret: jwtSecret,
     }),
+    forwardRef(() => UserModule),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    AccessTokenEncryptionService,
+    NotionService,
+  ],
+  exports: [AccessTokenEncryptionService],
 })
 export class AuthModule {}

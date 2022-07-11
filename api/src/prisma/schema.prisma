@@ -17,10 +17,10 @@ model User {
 }
 
 model Account {
-  id           String @id @unique @default(cuid())
-  accountId    String @unique
-  access_token String @db.Text
-  email        String
+  id          String @id @unique @default(cuid())
+  accountId   String @unique
+  accessToken String @db.Text
+  email       String
 
   // The ID of the workspace where this authorization took place.
   workspaceId      String

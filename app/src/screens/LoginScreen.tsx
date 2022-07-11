@@ -4,16 +4,16 @@ import { useAuthRequest } from 'expo-auth-session';
 import { Text } from 'native-base';
 import { useEffect } from 'react';
 import { Layout } from '../components/Layout';
-import { useGetAccessTokenWithCode } from '../hooks/mutations/use-get-access-token-with-code';
+import { useExchangeGrant } from '../hooks/mutations/use-exchange-grant';
 import { useSetAccessToken } from '../hooks/mutations/use-set-access-token';
 
 export const LoginScreen = ({}) => {
   const {
-    data: accessToken,
+    data: exchangeGrantResponse,
     mutate: getAccessToken,
     isLoading: isGettingAccessToken,
     error,
-  } = useGetAccessTokenWithCode();
+  } = useExchangeGrant();
 
   const { mutate: setAccessToken, isLoading: isSettingAccessToken } =
     useSetAccessToken();
@@ -39,18 +39,18 @@ export const LoginScreen = ({}) => {
   };
 
   useEffect(() => {
-    if (accessToken || isGettingAccessToken || error) return;
+    if (exchangeGrantResponse || isGettingAccessToken || error) return;
     if (response?.type !== 'success') return;
 
-    console.log(response);
-    return;
-    // getAccessToken({ code: response.params.code });
+    getAccessToken({ code: response.params.code });
   }, [response]);
 
   useEffect(() => {
-    if (!accessToken || isSettingAccessToken) return;
-    setAccessToken(accessToken);
-  }, [accessToken]);
+    if (!exchangeGrantResponse || isSettingAccessToken) return;
+    setAccessToken(exchangeGrantResponse.jwt);
+  }, [exchangeGrantResponse]);
+
+  console.log(exchangeGrantResponse);
 
   return (
     <Layout>

@@ -1,33 +1,24 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import axios from 'axios';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { IsPublic } from 'auth/decorators/is-public.decorator';
+import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { GetUser } from 'common/decorator/get-user.decorator';
+import { NotionService } from './notion.service';
 
 @Controller('/notion')
 export class NotionController {
-  @Get('/access-token')
-  async getAccessToken(@Query('code') code: string) {
-    const notionTokenEndpoint = process.env.NOTION_TOKEN_ENDPOINT || '';
-    const redirectUri = process.env.NOTION_REDIRECT_URI || '';
+  constructor(private notionService: NotionService) {}
 
-    const auth = Buffer.from(
-      `${process.env.NOTION_CLIENT_ID}:${process.env.NOTION_CLIENT_SECRET}`,
-    ).toString('base64');
+  // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbDVmZGN5aTkwMDAzZTNhMzUzcGViNmNpIiwiaWF0IjoxNjU3NDgwNjM1fQ.7HluGVZzbNhjXZcwY8ORG5g77GYH4X75s9RNqqhXmEU
+  @UseGuards(JwtAuthGuard)
+  @Get('/me')
+  async me(@GetUser() user: User) {
+    return this.notionService.getMe(user);
+  }
 
-    const { data } = await axios.post(
-      notionTokenEndpoint,
-      {
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUri,
-      },
-      {
-        headers: {
-          Authorization: `Basic ${auth}`,
-          'Content-Type': 'application/json',
-        },
-        validateStatus: (status) => status < 500,
-      },
-    );
-
-    return data.access_token;
+  @IsPublic()
+  @Get('/public')
+  public() {
+    return 'public';
   }
 }
