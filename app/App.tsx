@@ -1,16 +1,24 @@
+import { AuthenticationLayer } from '@/features/auth/AuthenticationLayer';
+import { nativeBaseTheme } from '@/lib/native-base-theme';
+import { queryClient } from '@/lib/react-query';
 import NetInfo from '@react-native-community/netinfo';
 import { NavigationContainer } from '@react-navigation/native';
-import { NativeBaseProvider, theme } from 'native-base';
+import { NativeBaseProvider } from 'native-base';
 import { useEffect } from 'react';
 import { AppState, AppStateStatus, Platform } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {
-  focusManager,
-  onlineManager,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
-import { Navigator } from './src/components/Navigator';
+import { focusManager, onlineManager, QueryClientProvider } from 'react-query';
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList {
+      Login: undefined;
+      Image: undefined;
+      Notion: undefined;
+      Result: undefined;
+      CreateSubpage: undefined;
+    }
+  }
+}
 
 onlineManager.setEventListener((setOnline) => {
   return NetInfo.addEventListener((state) => {
@@ -25,11 +33,6 @@ function onAppStateChange(status: AppStateStatus) {
     focusManager.setFocused(status === 'active');
   }
 }
-const queryClient = new QueryClient({
-  defaultOptions: {
-    mutations: {},
-  },
-});
 
 export default function App() {
   useEffect(() => {
@@ -39,12 +42,12 @@ export default function App() {
   }, []);
 
   return (
-    <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider theme={nativeBaseTheme}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <SafeAreaProvider>
-            <Navigator />
-          </SafeAreaProvider>
+          <AuthenticationLayer />
+          {/* <SafeAreaProvider> */}
+          {/* </SafeAreaProvider> */}
         </NavigationContainer>
       </QueryClientProvider>
     </NativeBaseProvider>

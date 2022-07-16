@@ -1,33 +1,21 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import axios from 'axios';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { NotionService } from './notion.service';
 
+@ApiTags('Notion')
 @Controller('/notion')
 export class NotionController {
-  @Get('/access-token')
-  async getAccessToken(@Query('code') code: string) {
-    const notionTokenEndpoint = process.env.NOTION_TOKEN_ENDPOINT;
-    const redirectUri = process.env.NOTION_REDIRECT_URI;
+  constructor(private notionService: NotionService) {}
 
-    const auth = Buffer.from(
-      `${process.env.NOTION_CLIENT_ID}:${process.env.NOTION_CLIENT_SECRET}`,
-    ).toString('base64');
+  @UseGuards(JwtAuthGuard)
+  @Get('/me')
+  async me() {
+    return this.notionService.me();
+  }
 
-    const { data } = await axios.post(
-      notionTokenEndpoint,
-      {
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUri,
-      },
-      {
-        headers: {
-          Authorization: `Basic ${auth}`,
-          'Content-Type': 'application/json',
-        },
-        validateStatus: (status) => status < 500,
-      },
-    );
-
-    return data.access_token;
+  @Get('/search')
+  async search(@Query('query') query: string) {
+    return this.notionService.search(query);
   }
 }

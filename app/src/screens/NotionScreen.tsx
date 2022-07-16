@@ -29,9 +29,11 @@ export const NotionScreen = ({}) => {
     debounce(() => setSearch(value), 100);
   };
 
-  const searchResults = searchResponse?.results.length
-    ? searchResponse.results
-    : null;
+  // const searchResults = searchResponse?.results.length
+  //   ? searchResponse.results
+  //   : null;
+
+  return null;
 
   return (
     <Layout>

@@ -1,5 +1,4 @@
 import { useMutation } from 'react-query';
-import { useNotionClient } from '../use-notion-client';
 
 export const useCreatePage = () => {
   const client = useNotionClient();

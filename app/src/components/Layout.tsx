@@ -1,18 +1,22 @@
-import { useUser } from '@/hooks/queries/use-user';
-import { Box, Center, Container, Image } from 'native-base';
+import { useLogout } from '@/features/auth/mutations/use-logout';
+import { Box, Button, Center, Flex, HStack } from 'native-base';
 import React, { PropsWithChildren } from 'react';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
-  const { data: user } = useUser();
+  const { mutate: logout } = useLogout();
+
+  const handleLogout = () => logout();
 
   return (
-    <Box mt={8} minH="100%" bg="white">
-      <Box py={6}>
-        {user?.avatar_url && <Image src={user.avatar_url} alt="Foo" />}
+    <Flex minH="full" bg="white">
+      <HStack py={2} justifyContent="flex-end">
+        <Button onPress={handleLogout} size="xs" variant="ghost">
+          Logout
+        </Button>
+      </HStack>
+      <Box flex={1} display="flex" px={4}>
+        <Center flex={1}>{children}</Center>
       </Box>
-      <Center>
-        <Container w="full">{children}</Container>
-      </Center>
-    </Box>
+    </Flex>
   );
 };
