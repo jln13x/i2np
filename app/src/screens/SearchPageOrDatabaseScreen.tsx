@@ -52,17 +52,15 @@ export const SearchPageOrDatabaseScreen = () => {
         />
         {results && results.length > 0 && (
           <Box mt={8} alignSelf="stretch">
-            <Text
-              mb={4}
-              textTransform="uppercase"
-              fontSize="2xs"
-              color="dark.200"
-            >
+            <Text textTransform="uppercase" fontSize="xs" color="dark.200">
               choose a page or database
             </Text>
-            <ScrollView w="full" h="xs" maxH="sm" pb={4}>
+            <ScrollView w="full" h="xs" maxH="sm" pb={4} mt={2}>
               <SearchResults results={results} />
             </ScrollView>
+            <Text fontSize="2xs" color="dark.400" mt={1}>
+              Showing only the top 3 matches
+            </Text>
           </Box>
         )}
 
