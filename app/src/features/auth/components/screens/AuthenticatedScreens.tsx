@@ -1,7 +1,7 @@
 import { CreateSubpageScreen } from '@/screens/CreateSubpage';
 import { HomeScreen } from '@/screens/HomeScreen';
-import { NotionScreen } from '@/screens/NotionScreen';
 import { ResultScreen } from '@/screens/ResultScreen';
+import { SearchPageOrDatabaseScreen } from '@/screens/SearchPageOrDatabaseScreen';
 import { UploadImageScreen } from '@/screens/UploadImageScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -25,8 +25,8 @@ export const AuthenticatedScreens = () => {
         }}
       />
       <Stack.Screen
-        name="Notion"
-        component={NotionScreen}
+        name="SearchPageOrDatabase"
+        component={SearchPageOrDatabaseScreen}
         options={{
           headerShown: false,
         }}

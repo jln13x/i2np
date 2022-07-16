@@ -15,7 +15,7 @@ declare global {
     interface RootParamList {
       Login: undefined;
       Image: undefined;
-      Notion: undefined;
+      SearchPageOrDatabase: undefined;
       Result: undefined;
       CreateSubpage: undefined;
     }

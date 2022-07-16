@@ -1,42 +1,24 @@
+import { SearchResultResponse } from '@/generated/api/interfaces';
+import { useSelectedResult } from '@/stores/selected-result';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, HStack, Icon, Pressable, Text } from 'native-base';
 import React from 'react';
-import {
-  CustomGetDatabaseResponseDetailed,
-  CustomGetPageResponseDetailed,
-  EmojiRequest,
-} from '../../lib/notion/types';
-import { useSelectedResult } from '../../stores/selected-result';
 
 interface SearchResultProps {
-  title: string;
-  emoji?: EmojiRequest;
+  result: SearchResultResponse;
 }
 
-interface Database {
-  type: 'database';
-  data: CustomGetDatabaseResponseDetailed;
-}
+export const SearchResult: React.FC<SearchResultProps> = ({ result }) => {
+  const { type, emoji, title, url } = result;
 
-interface Page {
-  type: 'page';
-  data: CustomGetPageResponseDetailed;
-}
-
-export const SearchResult: React.FC<SearchResultProps & (Database | Page)> = ({
-  type,
-  title,
-  emoji,
-  data,
-}) => {
   const iconName = type === 'database' ? 'database' : 'file-document';
 
   const { setSelectedResult } = useSelectedResult();
   const { navigate } = useNavigation();
 
   const onSearchResultPress = () => {
-    setSelectedResult(data);
+    setSelectedResult(result);
     navigate('Result');
   };
 
@@ -54,7 +36,7 @@ export const SearchResult: React.FC<SearchResultProps & (Database | Page)> = ({
           space={2}
           bg={isPressed ? 'gray.100' : 'white'}
         >
-          <Box p={1.5} bg="indigo.600" rounded="full">
+          <Box p={1.5} bg="brand" rounded="full">
             <Icon
               as={MaterialCommunityIcons}
               name={iconName}

@@ -27,7 +27,7 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
   };
 
   const handleTextApproved = () => {
-    navigate('Notion');
+    navigate('SearchPageOrDatabase');
   };
 
   return (

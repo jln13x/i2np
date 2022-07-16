@@ -1,4 +1,4 @@
-import { extendTheme } from 'native-base';
+import { extendTheme, theme } from 'native-base';
 
 export const nativeBaseTheme = extendTheme({
   config: {
@@ -6,6 +6,7 @@ export const nativeBaseTheme = extendTheme({
   },
   colors: {
     brand: '#4f46e5',
+    error: theme.colors.rose[600],
   },
 });
 

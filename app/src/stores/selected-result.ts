@@ -1,12 +1,7 @@
+import { SearchResultResponse } from '@/generated/api/interfaces';
 import create from 'zustand';
-import {
-  CustomGetDatabaseResponseDetailed,
-  CustomGetPageResponseDetailed,
-} from '../lib/notion/types';
 
-type SelectedResult =
-  | CustomGetPageResponseDetailed
-  | CustomGetDatabaseResponseDetailed;
+type SelectedResult = SearchResultResponse;
 
 interface SelectedResultState {
   selectedResult?: SelectedResult;
