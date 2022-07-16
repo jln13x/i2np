@@ -76,7 +76,7 @@ export class NotionService {
     const client = await this.getClient();
 
     const response = (await client.search({
-      page_size: 5,
+      page_size: 3,
       query,
     })) as unknown;
 
