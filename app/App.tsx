@@ -14,7 +14,7 @@ declare global {
   namespace ReactNavigation {
     interface RootParamList {
       Login: undefined;
-      Image: undefined;
+      UploadImage: undefined;
       SearchPageOrDatabase: undefined;
       Result: undefined;
       CreateSubpage: undefined;

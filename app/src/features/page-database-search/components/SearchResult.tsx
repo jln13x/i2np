@@ -10,7 +10,7 @@ interface SearchResultProps {
 }
 
 export const SearchResult: React.FC<SearchResultProps> = ({ result }) => {
-  const { type, emoji, title, url } = result;
+  const { type, emoji, title } = result;
 
   const iconName = type === 'database' ? 'database' : 'file-document';
 

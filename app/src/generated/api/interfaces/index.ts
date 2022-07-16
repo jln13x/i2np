@@ -1,3 +1,4 @@
+export * from './create-page-request';
 export * from './login-request';
 export * from './me-response';
 export * from './process-image-request';

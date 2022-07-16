@@ -1,11 +1,10 @@
 import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { SecondaryButton } from '@/components/button/SecondaryButton';
-import { Textarea } from '@/components/Textarea';
-import { useSelectedText } from '@/stores/selected-text';
+import { EditDetectedText } from '@/components/EditDetectedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Button, HStack, Icon, Text, VStack } from 'native-base';
-import React, { useRef } from 'react';
+import { Box, HStack, Icon, Text, VStack } from 'native-base';
+import React from 'react';
 
 interface ProcessingResultProps {
   selectedText: string;
@@ -16,15 +15,7 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
   selectedText,
   goBack,
 }) => {
-  const detectedText = useRef<string>(selectedText);
-  const { setSelectedText } = useSelectedText();
   const { navigate } = useNavigation();
-
-  const isDirty = selectedText !== detectedText.current;
-
-  const handleRevertChanges = () => {
-    setSelectedText(detectedText.current);
-  };
 
   const handleTextApproved = () => {
     navigate('SearchPageOrDatabase');
@@ -41,41 +32,8 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
           needed.
         </Text>
       </Box>
-      <Box minH="xs" maxH="md">
-        <Button
-          opacity={isDirty ? 1 : 0}
-          disabled={!isDirty}
-          display="flex"
-          ml="auto"
-          variant="ghost"
-          onPress={handleRevertChanges}
-          p={1}
-          _pressed={{
-            bg: 'none',
-          }}
-          leftIcon={
-            <Icon
-              as={MaterialCommunityIcons}
-              name="undo"
-              color="black"
-              size="xs"
-            />
-          }
-        >
-          <Text fontSize="xs">Revert your changes</Text>
-        </Button>
-        <Box flex={1}>
-          <Textarea
-            h="full"
-            value={selectedText}
-            bg="gray.100"
-            rounded="md"
-            p={2}
-            shadow="2"
-            onChangeText={setSelectedText}
-          />
-        </Box>
-      </Box>
+
+      <EditDetectedText text={selectedText} />
 
       <HStack justifyContent="space-between">
         <SecondaryButton

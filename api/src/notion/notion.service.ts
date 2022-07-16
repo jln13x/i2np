@@ -11,6 +11,7 @@ import { AccessToken, accessTokenSchema } from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
 import { searchResponseSchema } from './schemas/search-schema';
 import { titlePropertiesResponseSchema } from './schemas/title-properties.schema';
+import { textToNotionParagraphs } from './utils/text-to-notion-paragraphs';
 
 @Injectable()
 export class NotionService {
@@ -146,5 +147,18 @@ export class NotionService {
     });
 
     return response;
+  }
+
+  async createPage(pageId: string, text: string) {
+    const client = await this.getClient();
+    const client1 = await this.getClient();
+    const client2 = await this.getClient();
+    const client3 = await this.getClient();
+    const formatted = textToNotionParagraphs(text);
+
+    return client.blocks.children.append({
+      block_id: pageId,
+      children: formatted,
+    });
   }
 }
