@@ -9,7 +9,7 @@ export const Textarea: React.FC<ITextAreaProps> = (props) => {
       _focus={{
         bg: 'gray.100',
         borderColor: 'indigo.400',
-        selectionColor: 'indigo.100',
+        selectionColor: 'indigo.600',
       }}
       {...props}
     />
