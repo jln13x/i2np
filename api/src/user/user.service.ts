@@ -21,8 +21,6 @@ export class UserService {
       },
     });
 
-    console.log(account);
-
     if (!account) {
       throw new NotFoundException('No account not found');
     }

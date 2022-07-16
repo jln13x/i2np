@@ -39,8 +39,8 @@ export class AccessTokenEncryptionService {
     const key = await this.getKey(salt);
     const tokenBuffer = Buffer.from(accessToken, 'hex');
 
-    const iv = tokenBuffer.slice(0, 16);
-    const encryptedToken = tokenBuffer.slice(16);
+    const iv = tokenBuffer.subarray(0, 16);
+    const encryptedToken = tokenBuffer.subarray(16);
 
     const decipher = createDecipheriv(
       ACCESS_TOKEN_ENCRYPTION.algorithm,

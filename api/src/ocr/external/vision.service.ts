@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OcrService } from './ocr-service';
 import vision, { ImageAnnotatorClient } from '@google-cloud/vision';
-import { OcrResponse, Vertex } from './ocr.response';
+import { OcrResponse } from './ocr.response';
 
 @Injectable()
 export class VisionService implements OcrService {
@@ -31,8 +31,12 @@ export class VisionService implements OcrService {
 
     if (!detectedText) return null;
 
-    const textNodes: OcrResponse['textNodes'] = [];
-    for (const node of textAnnotations) {
+    return new OcrResponse(detectedText);
+  }
+}
+
+/**
+ *     for (const node of textAnnotations) {
       const vertices = node.boundingPoly?.vertices;
       const description = node.description;
 
@@ -47,7 +51,4 @@ export class VisionService implements OcrService {
         vertices: validVertices,
       });
     }
-
-    return new OcrResponse(textNodes, detectedText);
-  }
-}
+ */

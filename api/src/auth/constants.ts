@@ -10,3 +10,7 @@ export const DECORATORS = {
     key: 'isPublic',
   },
 };
+
+export const EVENTS = {
+  LOGIN_SUCCESS: 'login.success',
+};

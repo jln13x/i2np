@@ -1,9 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { NotionService } from 'notion/notion.service';
+import { NotionModule } from 'notion/notion.module';
 import { PrismaModule } from 'prisma/prisma.module';
 import { UserModule } from 'user/user.module';
 import { AccessTokenEncryptionService } from './access-token-encryption.service';
+import { AccessTokenProviderService } from './access-token-provider.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtSecret } from './constants';
@@ -16,14 +17,15 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       secret: jwtSecret,
     }),
     forwardRef(() => UserModule),
+    forwardRef(() => NotionModule),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     JwtStrategy,
     AccessTokenEncryptionService,
-    NotionService,
+    AccessTokenProviderService,
   ],
-  exports: [AccessTokenEncryptionService],
+  exports: [AccessTokenEncryptionService, AccessTokenProviderService],
 })
 export class AuthModule {}

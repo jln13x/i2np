@@ -10,7 +10,8 @@
       "@/stores": ["src/stores"],
       "@/hooks": ["src/hooks"],
       "@/utils": ["src/utils"],
-      "@/lib": ["src/lib"]
+      "@/lib": ["src/lib"],
+      "@/generated": ["src/generated"]
     }
   }
 }

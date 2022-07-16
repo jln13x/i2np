@@ -10,8 +10,10 @@ export const NotionButton: React.FC<NotionButtonProps> = ({
   ...props
 }) => {
   return (
-    <Button leftIcon={<NotionIcon />} variant="outline" {...props}>
-      <Text color="black">{text}</Text>
+    <Button leftIcon={<NotionIcon />} variant="outline" {...props} p={3}>
+      <Text color="black" textTransform="uppercase" letterSpacing="xl">
+        {text}
+      </Text>
     </Button>
   );
 };

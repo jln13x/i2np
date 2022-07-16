@@ -1,24 +1,15 @@
+import { BrandLogo } from '@/components/BrandLogo';
 import { NotionButton } from '@/components/button/NotionButton';
 import { AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI } from '@env';
 import { useAuthRequest } from 'expo-auth-session';
-import { Text } from 'native-base';
-import { useEffect } from 'react';
+import { Box, Center, Text } from 'native-base';
 import { Layout } from '../components/Layout';
-import { useExchangeGrant } from '../hooks/mutations/use-exchange-grant';
-import { useSetAccessToken } from '../hooks/mutations/use-set-access-token';
+import { useLogin } from '../features/auth/mutations/use-login';
 
 export const LoginScreen = ({}) => {
-  const {
-    data: exchangeGrantResponse,
-    mutate: getAccessToken,
-    isLoading: isGettingAccessToken,
-    error,
-  } = useExchangeGrant();
+  const { mutate: login, isLoading: isLoggingIn } = useLogin();
 
-  const { mutate: setAccessToken, isLoading: isSettingAccessToken } =
-    useSetAccessToken();
-
-  const [_, response, promptAsync] = useAuthRequest(
+  const [_, __, promptAsync] = useAuthRequest(
     {
       clientId: CLIENT_ID,
       redirectUri: REDIRECT_URI,
@@ -33,39 +24,35 @@ export const LoginScreen = ({}) => {
   );
 
   const loginWithNotion = async () => {
-    await promptAsync({
+    const notionResponse = await promptAsync({
       useProxy: true,
     });
+
+    if (notionResponse?.type !== 'success') return;
+
+    login({ code: notionResponse.params.code });
   };
-
-  useEffect(() => {
-    if (exchangeGrantResponse || isGettingAccessToken || error) return;
-    if (response?.type !== 'success') return;
-
-    getAccessToken({ code: response.params.code });
-  }, [response]);
-
-  useEffect(() => {
-    if (!exchangeGrantResponse || isSettingAccessToken) return;
-    setAccessToken(exchangeGrantResponse.jwt);
-  }, [exchangeGrantResponse]);
-
-  console.log(exchangeGrantResponse);
 
   return (
     <Layout>
-      <NotionButton text="Login with Notion" onPress={loginWithNotion} />
-      {isGettingAccessToken && (
-        <Text
-          fontSize="lg"
-          textTransform="uppercase"
-          letterSpacing="lg"
-          fontWeight="light"
-          mt={4}
-        >
-          Logging you in...
-        </Text>
-      )}
+      <Center w="full" alignSelf="stretch" mt={32}>
+        <BrandLogo />
+        <Box mt={16}>
+          {isLoggingIn ? (
+            <Text
+              fontSize="lg"
+              textTransform="uppercase"
+              letterSpacing="lg"
+              fontWeight="light"
+              mt={4}
+            >
+              Logging you in...
+            </Text>
+          ) : (
+            <NotionButton text="Login with Notion" onPress={loginWithNotion} />
+          )}
+        </Box>
+      </Center>
     </Layout>
   );
 };

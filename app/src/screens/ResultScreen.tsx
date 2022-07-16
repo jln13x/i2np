@@ -1,8 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import {
-  Box, Icon, Text, VStack
-} from 'native-base';
+import { Box, Icon, Text, VStack } from 'native-base';
 import { PrimaryButton } from '../components/button/PrimaryButton';
 import { EditSelectedTextModal } from '../components/EditSelectedTextModal';
 import { Layout } from '../components/Layout';

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginInput } from './login/login.input';
+import { LoginRequest as LoginRequest } from './login/login.request';
 import { AccessTokenEncryptionService } from './access-token-encryption.service';
 import { JwtService } from '@nestjs/jwt';
 import { NotionService } from 'notion/notion.service';
@@ -14,9 +14,9 @@ export class AuthService {
     private notionService: NotionService,
   ) {}
 
-  public async login(input: LoginInput) {
+  public async login(request: LoginRequest) {
     const accessTokenResponse = await this.notionService.exchangeGrant(
-      input.code,
+      request.code,
     );
 
     const {

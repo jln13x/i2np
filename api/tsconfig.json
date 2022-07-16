@@ -12,6 +12,7 @@
     "baseUrl": "./src",
     "incremental": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["./src/auth/types"]
   }
 }

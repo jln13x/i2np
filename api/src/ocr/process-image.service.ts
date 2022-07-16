@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OcrService, OCR_SERVICE } from './external/ocr-service';
-import { ProcessImageInput } from './process-image.input';
+import { ProcessImageRequest } from './process-image.request';
+import { ProcessImageResponse } from './process-image.response';
 
 @Injectable()
 export class ProcessImageService {
@@ -9,15 +10,13 @@ export class ProcessImageService {
     private readonly ocrService: OcrService,
   ) {}
 
-  async processImage(processImageRequest: ProcessImageInput) {
-    return this.ocrService.processImage(processImageRequest.base64Image);
+  async processImage(processImageRequest: ProcessImageRequest) {
+    const processedImage = await this.ocrService.processImage(
+      processImageRequest.base64Image,
+    );
+
+    if (!processedImage) return null;
+
+    return new ProcessImageResponse(processedImage.detectedText);
   }
-
-  // isImage(file: Express.Multer.File) {
-  //   return file.mimetype.startsWith('image/');
-  // }
-
-  // fileToBase64(file: Express.Multer.File) {
-  //   return file.buffer.toString('base64');
-  // }
 }
