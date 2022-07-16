@@ -6,8 +6,6 @@ import { userKeys } from './query-key-factory';
 
 export const useMeQuery = () => {
   const { data: jwt } = useJwt();
-  console.log(jwt)
-
 
   return useQuery<MeResponse>({
     queryKey: userKeys.me,

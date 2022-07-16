@@ -1,4 +1,5 @@
 import { Image } from 'native-base';
+// @ts-ignore
 import brand from '../../assets/brand.png';
 
 interface BrandLogoProps {

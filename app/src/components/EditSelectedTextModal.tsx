@@ -13,7 +13,7 @@ import { PrimaryButton } from './button/PrimaryButton';
 import { Textarea } from './Textarea';
 
 export const EditSelectedTextModal: React.FC = () => {
-  const { selectedText: pogu, setSelectedText } = useSelectedText();
+  const { selectedText: tmp, setSelectedText } = useSelectedText();
   const { isOpen, onOpen, onClose } = useDisclose();
   const previousValue = useRef<string>();
 

@@ -2,7 +2,6 @@ import { NotionIcon } from '@/components/NotionIcon';
 import { useUser } from '@/features/user/queries/use-user';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, Pressable, Text } from 'native-base';
-import React from 'react';
 import { Layout } from '../components/Layout';
 
 export const HomeScreen = () => {

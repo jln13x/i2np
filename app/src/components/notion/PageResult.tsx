@@ -11,7 +11,7 @@ export const PageResult: React.FC<PageResultProps> = ({ page }) => {
 
   if (!title) return null;
 
-  let emoji = page.icon?.type === 'emoji' ? page.icon.emoji : undefined;
+  const emoji = page.icon?.type === 'emoji' ? page.icon.emoji : undefined;
 
   return <SearchResult title={title} type="page" emoji={emoji} data={page} />;
 };

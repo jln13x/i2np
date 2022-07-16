@@ -1,6 +1,5 @@
 import { getTitle } from '@/utils/notion';
 import { Flex, Text } from 'native-base';
-import React from 'react';
 import { Layout } from '../components/Layout';
 import { TitleForm } from '../features/subpage/components/TitleForm';
 import { useSelectedResult } from '../stores/selected-result';

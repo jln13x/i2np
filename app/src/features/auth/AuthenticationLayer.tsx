@@ -5,7 +5,7 @@ import { useMeQuery } from '../user/queries/use-me-query';
 import { AuthenticatedScreens } from './components/screens/AuthenticatedScreens';
 import { UnauthenticatedScreens } from './components/screens/UnauthenticatedScreens';
 
-export const AuthenticationLayer: React.FC<PropsWithChildren<{}>> = ({}) => {
+export const AuthenticationLayer: React.FC<PropsWithChildren<never>> = () => {
   const { data: me, isLoading: isLoadingMe } = useMeQuery();
 
   if (isLoadingMe) {

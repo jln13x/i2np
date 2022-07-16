@@ -11,7 +11,7 @@ export const DatabaseResult: React.FC<DatabaseResultProps> = ({ database }) => {
 
   if (!title) return null;
 
-  let emoji = database.icon?.type === 'emoji' ? database.icon.emoji : undefined;
+  const emoji = database.icon?.type === 'emoji' ? database.icon.emoji : undefined;
 
   return (
     <SearchResult title={title} type="database" emoji={emoji} data={database} />

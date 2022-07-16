@@ -6,7 +6,7 @@ import { Box, Center, Text } from 'native-base';
 import { Layout } from '../components/Layout';
 import { useLogin } from '../features/auth/mutations/use-login';
 
-export const LoginScreen = ({}) => {
+export const LoginScreen = () => {
   const { mutate: login, isLoading: isLoggingIn } = useLogin();
 
   const [_, __, promptAsync] = useAuthRequest(

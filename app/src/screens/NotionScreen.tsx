@@ -9,7 +9,7 @@ import { useSearch } from '../hooks/queries/use-search';
 import { useDebounce } from '../hooks/use-debounce';
 import { useSelectedText } from '../stores/selected-text';
 
-export const NotionScreen = ({}) => {
+export const NotionScreen = () => {
   const [search, setSearch] = useState('');
   const debounce = useDebounce();
   const {

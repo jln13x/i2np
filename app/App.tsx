@@ -6,9 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import { useEffect } from 'react';
 import { AppState, AppStateStatus, Platform } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { focusManager, onlineManager, QueryClientProvider } from 'react-query';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace ReactNavigation {
     interface RootParamList {
       Login: undefined;
@@ -45,9 +47,9 @@ export default function App() {
     <NativeBaseProvider theme={nativeBaseTheme}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <AuthenticationLayer />
-          {/* <SafeAreaProvider> */}
-          {/* </SafeAreaProvider> */}
+          <SafeAreaProvider>
+            <AuthenticationLayer />
+          </SafeAreaProvider>
         </NavigationContainer>
       </QueryClientProvider>
     </NativeBaseProvider>

@@ -1,7 +1,5 @@
 import { Box } from 'native-base';
 
-interface CreationFailedProps {}
-
-export const CreationFailed: React.FC<CreationFailedProps> = ({}) => {
+export const CreationFailed = () => {
   return <Box>An error occurred while creating the subpage.</Box>;
 };

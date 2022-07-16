@@ -12,5 +12,6 @@ export const nativeBaseTheme = extendTheme({
 type NativeBaseThemeType = typeof nativeBaseTheme;
 
 declare module 'native-base' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface ICustomTheme extends NativeBaseThemeType {}
 }
