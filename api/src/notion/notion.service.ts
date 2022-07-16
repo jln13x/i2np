@@ -111,6 +111,7 @@ export class NotionService {
         url: result.url,
         title,
         emoji,
+        type: result.object,
       };
 
       searchResults.push(searchResult);
