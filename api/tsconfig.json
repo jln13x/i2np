@@ -13,6 +13,7 @@
     "incremental": true,
     "skipLibCheck": true,
     "strict": true,
-    "typeRoots": ["./src/auth/types"]
+    "typeRoots": ["./src/auth/types"],
+    "strictPropertyInitialization": false
   }
 }

@@ -6,6 +6,7 @@ import { NOTION } from './constants';
 import { InvalidNotionResponseException } from './exceptions/invalid-notion-response.exception';
 import { MeResponse } from './response/me.response';
 import { SearchResultResponse } from './response/search-result.response';
+import { SearchResultsResponse } from './response/search-results.response';
 import { AccessToken, accessTokenSchema } from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
 import { searchResponseSchema } from './schemas/search-schema';
@@ -104,17 +105,20 @@ export class NotionService {
       if (title === '') continue;
 
       const emoji = result?.icon?.type === 'emoji' ? result.icon.emoji : null;
-      const searchResult = new SearchResultResponse(
-        result.id,
-        result.url,
+
+      const searchResult: SearchResultResponse = {
+        id: result.id,
+        url: result.url,
         title,
         emoji,
-      );
+      };
 
       searchResults.push(searchResult);
     }
 
-    return searchResults;
+    return {
+      results: searchResults,
+    } as SearchResultsResponse;
   }
 
   async pageTitle(pageId: string): Promise<string> {
