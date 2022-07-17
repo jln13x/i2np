@@ -6,13 +6,19 @@ import { useSelectedText } from '@/stores/selected-text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Icon, Text, VStack } from 'native-base';
+import { AddToPageSuccess } from './AddToPageSuccess';
+import { CreateSubpage } from './CreateSubpage';
 
 interface PageActionsProps {
   page: SearchResultResponse;
 }
 
 export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
-  const { mutate: addToPage, isLoading: isAddingPage } = useAddToPage();
+  const {
+    mutate: addToPage,
+    isLoading: isAddingPage,
+    isSuccess: addedToPage,
+  } = useAddToPage();
   const { navigate } = useNavigation();
   const { title, type, id } = page;
   const { selectedText: text } = useSelectedText();
@@ -28,11 +34,16 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
   }
 
   const handleAddToPage = () => {
-    addToPage({
-      pageId: id,
-      text,
-    });
+    addToPage(
+      {
+        pageId: id,
+        text,
+      },
+      {}
+    );
   };
+
+  if (addedToPage) return <AddToPageSuccess />;
 
   return (
     <Box>
@@ -74,7 +85,6 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
               />
             }
             isDisabled={isAddingPage}
-            // onPress={redirectToCreateSubpage}
           >
             Create new subpage
           </PrimaryButton>
