@@ -17,19 +17,19 @@
 /**
  * 
  * @export
- * @interface CreatePageRequest
+ * @interface AppendToPageRequest
  */
-export interface CreatePageRequest {
+export interface AppendToPageRequest {
     /**
      * 
      * @type {string}
-     * @memberof CreatePageRequest
+     * @memberof AppendToPageRequest
      */
     'pageId': string;
     /**
      * 
      * @type {string}
-     * @memberof CreatePageRequest
+     * @memberof AppendToPageRequest
      */
     'text': string;
 }

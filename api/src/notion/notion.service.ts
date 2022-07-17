@@ -149,11 +149,8 @@ export class NotionService {
     return response;
   }
 
-  async createPage(pageId: string, text: string) {
+  async appendToPage(pageId: string, text: string) {
     const client = await this.getClient();
-    const client1 = await this.getClient();
-    const client2 = await this.getClient();
-    const client3 = await this.getClient();
     const formatted = textToNotionParagraphs(text);
 
     return client.blocks.children.append({
@@ -161,4 +158,5 @@ export class NotionService {
       children: formatted,
     });
   }
+
 }

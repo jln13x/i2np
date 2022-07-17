@@ -1,13 +1,12 @@
 import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { SearchResultResponse } from '@/generated/api/interfaces';
-import { useAddToPage } from '@/hooks/mutations/use-add-to-page';
 import { useSelectedText } from '@/stores/selected-text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Icon, Text, VStack } from 'native-base';
+import { useAppendToPage } from '../mutations/use-append-to-page';
 import { AddToPageSuccess } from './AddToPageSuccess';
-import { CreateSubpage } from './CreateSubpage';
 
 interface PageActionsProps {
   page: SearchResultResponse;
@@ -15,10 +14,10 @@ interface PageActionsProps {
 
 export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
   const {
-    mutate: addToPage,
-    isLoading: isAddingPage,
-    isSuccess: addedToPage,
-  } = useAddToPage();
+    mutate: appendToPage,
+    isLoading: isAppendingToPage,
+    isSuccess: appendedToPage,
+  } = useAppendToPage();
   const { navigate } = useNavigation();
   const { title, type, id } = page;
   const { selectedText: text } = useSelectedText();
@@ -34,7 +33,7 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
   }
 
   const handleAddToPage = () => {
-    addToPage(
+    appendToPage(
       {
         pageId: id,
         text,
@@ -43,7 +42,7 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
     );
   };
 
-  if (addedToPage) return <AddToPageSuccess />;
+  if (appendedToPage) return <AddToPageSuccess />;
 
   return (
     <Box>
@@ -71,8 +70,8 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
               <Icon as={MaterialCommunityIcons} name="plus" size="lg" />
             }
             onPress={handleAddToPage}
-            isDisabled={isAddingPage}
-            isLoading={isAddingPage}
+            isDisabled={isAppendingToPage}
+            isLoading={isAppendingToPage}
           >
             Add to page
           </PrimaryButton>
@@ -84,7 +83,7 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
                 name="text-box-multiple-outline"
               />
             }
-            isDisabled={isAddingPage}
+            isDisabled={isAppendingToPage}
           >
             Create new subpage
           </PrimaryButton>
