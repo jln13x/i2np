@@ -2,6 +2,7 @@ import { useSelectedText } from '@/stores/selected-text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box, Button, Icon, Text } from 'native-base';
 import { useRef } from 'react';
+import { Container } from './Container';
 import { Textarea } from './Textarea';
 
 interface EditDetectedTextProps {
@@ -19,7 +20,7 @@ export const EditDetectedText: React.FC<EditDetectedTextProps> = ({ text }) => {
   const isDirty = text !== detectedText.current;
 
   return (
-    <Box minH="xs" maxH="md">
+    <Box flex={1}>
       <Button
         opacity={isDirty ? 1 : 0}
         disabled={!isDirty}
@@ -42,16 +43,16 @@ export const EditDetectedText: React.FC<EditDetectedTextProps> = ({ text }) => {
       >
         <Text fontSize="xs">Revert your changes</Text>
       </Button>
-      <Box flex={1}>
-        <Textarea
-          h="full"
-          value={text}
-          bg="gray.100"
-          rounded="md"
-          p={2}
-          shadow="2"
-          onChangeText={setSelectedText}
-        />
+      <Box flex={1} bg="gray.100">
+        <Container>
+          <Textarea
+            py={2}
+            h="full"
+            value={text}
+            rounded="md"
+            onChangeText={setSelectedText}
+          />
+        </Container>
       </Box>
     </Box>
   );

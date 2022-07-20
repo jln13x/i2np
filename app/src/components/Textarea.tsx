@@ -6,10 +6,12 @@ export const Textarea: React.FC<ITextAreaProps> = (props) => {
       autoCompleteType="off"
       multiline
       spellCheck={false}
+      borderColor="gray.100"
+      p={0}
       _focus={{
         bg: 'gray.100',
-        borderColor: 'indigo.400',
-        selectionColor: 'indigo.600',
+        borderColor: 'gray.100',
+        selectionColor: 'indigo.400',
       }}
       {...props}
     />

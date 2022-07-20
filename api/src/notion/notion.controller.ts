@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { NotionService } from './notion.service';
 import { AppendToPageRequest } from './request/append-to-page.request';
+import { CreatePageRequest } from './request/create-page.request';
 
 @ApiTags('Notion')
 @Controller('/notion')
@@ -21,10 +22,16 @@ export class NotionController {
   }
 
   @Post('/pages/append')
-  async appendToPage(@Body() createPageRequest: AppendToPageRequest) {
-    const { pageId, text } = createPageRequest;
+  async appendToPage(@Body() appendToPageRequest: AppendToPageRequest) {
+    const { pageId, text } = appendToPageRequest;
     await this.notionService.appendToPage(pageId, text);
 
     return { success: true };
+  }
+
+  @Post('/pages')
+  async createPage(@Body() createPageRequest: CreatePageRequest) {
+    const { parentId, parentType, title, text } = createPageRequest;
+    return await this.notionService.createPage(parentId, title, text, parentType);
   }
 }

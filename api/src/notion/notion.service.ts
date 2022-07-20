@@ -1,17 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Client } from '@notionhq/client';
 import { AccessTokenProviderService } from 'auth/access-token-provider.service';
 import axios from 'axios';
 import { NOTION } from './constants';
 import { InvalidNotionResponseException } from './exceptions/invalid-notion-response.exception';
+import { CreatePageResponse } from './response/create-page.response';
 import { MeResponse } from './response/me.response';
 import { SearchResultResponse } from './response/search-result.response';
 import { SearchResultsResponse } from './response/search-results.response';
 import { AccessToken, accessTokenSchema } from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
+import { createPageSchema } from './schemas/create-page.schema';
 import { searchResponseSchema } from './schemas/search-schema';
 import { titlePropertiesResponseSchema } from './schemas/title-properties.schema';
+import { PageType } from './types';
 import { textToNotionParagraphs } from './utils/text-to-notion-paragraphs';
+import { textToNotionTitle } from './utils/text-to-notion-title';
 
 @Injectable()
 export class NotionService {
@@ -112,7 +116,7 @@ export class NotionService {
         url: result.url,
         title,
         emoji,
-        type: result.object,
+        type: result.object === 'page' ? PageType.PAGE : PageType.DATABASE,
       };
 
       searchResults.push(searchResult);
@@ -159,4 +163,49 @@ export class NotionService {
     });
   }
 
+  async createPage(
+    parentId: string,
+    title: string,
+    text: string,
+    parentType: PageType,
+  ) {
+    const client = await this.getClient();
+    const formatted = textToNotionParagraphs(text);
+
+    let response: unknown;
+
+    if (parentType === PageType.PAGE) {
+      response = (await client.pages.create({
+        parent: {
+          page_id: parentId,
+          type: 'page_id',
+        },
+        properties: {
+          title: textToNotionTitle(title),
+        },
+        children: formatted,
+      })) as unknown;
+    }
+
+    if (parentType === PageType.DATABASE) {
+      response = (await client.pages.create({
+        parent: {
+          database_id: parentId,
+          type: 'database_id',
+        },
+        properties: {
+          title: textToNotionTitle(title),
+        },
+        children: formatted,
+      })) as unknown;
+    }
+
+    const schema = createPageSchema.safeParse(response);
+
+    if (!schema.success) throw new InvalidNotionResponseException(schema.error);
+
+    return {
+      url: schema.data.url,
+    } as CreatePageResponse;
+  }
 }

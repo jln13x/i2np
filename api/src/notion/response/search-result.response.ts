@@ -1,8 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { PageType } from '../types';
 
 export class SearchResultResponse {
-  @ApiProperty({ enum: ['page', 'database'] })
-  type: 'page' | 'database';
+  type: PageType;
   id: string;
   url: string;
   title: string;

@@ -1,11 +1,14 @@
-import { CreateSubpageScreen } from '@/screens/CreateSubpage';
-import { HomeScreen } from '@/screens/HomeScreen';
-import { ResultScreen } from '@/screens/ResultScreen';
-import { SearchPageOrDatabaseScreen } from '@/screens/SearchPageOrDatabaseScreen';
-import { UploadImageScreen } from '@/screens/UploadImageScreen';
+import {
+  HomeScreen,
+  ResultScreen,
+  SearchPageOrDatabaseScreen,
+  UploadImageScreen,
+} from '@/screens';
+import { CreatePageScreen } from '@/screens/CreatePageScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AuthenticatedScreensStack } from '../types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<AuthenticatedScreensStack>();
 
 export const AuthenticatedScreens = () => {
   return (
@@ -18,7 +21,7 @@ export const AuthenticatedScreens = () => {
         }}
       />
       <Stack.Screen
-        name="Image"
+        name="UploadImage"
         component={UploadImageScreen}
         options={{
           headerShown: false,
@@ -38,9 +41,10 @@ export const AuthenticatedScreens = () => {
           headerShown: false,
         }}
       />
+
       <Stack.Screen
-        name="CreateSubpage"
-        component={CreateSubpageScreen}
+        name="CreatePage"
+        component={CreatePageScreen}
         options={{
           headerShown: false,
         }}

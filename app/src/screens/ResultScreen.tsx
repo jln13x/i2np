@@ -1,3 +1,4 @@
+import { DatabaseActions } from '@/features/database/DatabaseActions';
 import { PageActions } from '@/features/page/components';
 import { useNavigation } from '@react-navigation/native';
 import { Layout } from '../components/Layout';
@@ -16,6 +17,14 @@ export const ResultScreen = () => {
     return (
       <Layout>
         <PageActions page={pageOrDatabase} />
+      </Layout>
+    );
+  }
+
+  if (pageOrDatabase.type === 'database') {
+    return (
+      <Layout>
+        <DatabaseActions database={pageOrDatabase} />
       </Layout>
     );
   }

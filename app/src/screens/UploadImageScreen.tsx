@@ -5,7 +5,7 @@ import { Layout } from '../components/Layout';
 export const UploadImageScreen = () => {
   return (
     <Layout>
-      <Box alignItems="center" justifyContent="center" w="full">
+      <Box h="full">
         <UploadImage />
       </Box>
     </Layout>

@@ -1,6 +1,7 @@
 import { useLogout } from '@/features/auth/mutations/use-logout';
-import { Box, Button, Center, Flex, HStack } from 'native-base';
+import { Box, Button, Flex, Text } from 'native-base';
 import React, { PropsWithChildren } from 'react';
+import { Container } from './Container';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const { mutate: logout } = useLogout();
@@ -8,14 +9,22 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const handleLogout = () => logout();
 
   return (
-    <Flex minH="full" bg="white">
-      <HStack py={2} justifyContent="flex-end">
+    <Flex minH="full" flex={1} safeArea={true} bg="pink.300">
+      <Container
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        h="12"
+        bg="pink.400"
+        flexDir="row"
+      >
+        <Text>Dashboard</Text>
         <Button onPress={handleLogout} size="xs" variant="ghost">
           Logout
         </Button>
-      </HStack>
-      <Box flex={1} display="flex" px={4}>
-        <Center flex={1}>{children}</Center>
+      </Container>
+      <Box flex={1} bg="white">
+        {children}
       </Box>
     </Flex>
   );

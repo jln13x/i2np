@@ -15,3 +15,4 @@ const envs = {
 };
 
 export const NOTION = notionSchema.parse(envs);
+

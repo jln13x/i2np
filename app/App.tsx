@@ -6,21 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import { useEffect } from 'react';
 import { AppState, AppStateStatus, Platform } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { focusManager, onlineManager, QueryClientProvider } from 'react-query';
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace ReactNavigation {
-    interface RootParamList {
-      Login: undefined;
-      UploadImage: undefined;
-      SearchPageOrDatabase: undefined;
-      Result: undefined;
-      CreateSubpage: undefined;
-    }
-  }
-}
 
 onlineManager.setEventListener((setOnline) => {
   return NetInfo.addEventListener((state) => {
@@ -47,9 +33,7 @@ export default function App() {
     <NativeBaseProvider theme={nativeBaseTheme}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <SafeAreaProvider>
-            <AuthenticationLayer />
-          </SafeAreaProvider>
+          <AuthenticationLayer />
         </NavigationContainer>
       </QueryClientProvider>
     </NativeBaseProvider>

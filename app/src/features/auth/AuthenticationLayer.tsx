@@ -1,9 +1,11 @@
 import { Spinner } from '@/components/Spinner';
+import {
+  AuthenticatedScreens,
+  UnauthenticatedScreens,
+} from '@/features/navigation/components';
 import { Center } from 'native-base';
 import { PropsWithChildren } from 'react';
 import { useMeQuery } from '../user/queries/use-me-query';
-import { AuthenticatedScreens } from './components/screens/AuthenticatedScreens';
-import { UnauthenticatedScreens } from './components/screens/UnauthenticatedScreens';
 
 export const AuthenticationLayer: React.FC<PropsWithChildren<unknown>> = () => {
   const { data: me, isLoading: isLoadingMe } = useMeQuery();

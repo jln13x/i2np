@@ -1,4 +1,6 @@
+export * from './append-to-page-request';
 export * from './create-page-request';
+export * from './create-page-response';
 export * from './login-request';
 export * from './me-response';
 export * from './process-image-request';

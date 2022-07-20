@@ -1,5 +1,6 @@
 import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { SecondaryButton } from '@/components/button/SecondaryButton';
+import { Container } from '@/components/Container';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -22,8 +23,8 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
   };
 
   return (
-    <VStack w="full" space={8} h="full" justifyContent="center">
-      <Box>
+    <VStack h="full">
+      <Container>
         <Text fontSize="2xl" letterSpacing="lg">
           Detected text in your image!
         </Text>
@@ -31,24 +32,30 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
           You are now able to double-check the text aswell as modifying it if
           needed.
         </Text>
-      </Box>
+      </Container>
 
       <EditDetectedText text={selectedText} />
 
-      <HStack justifyContent="space-between">
-        <SecondaryButton
-          leftIcon={<Icon as={MaterialCommunityIcons} name="arrow-left" />}
-          onPress={goBack}
-        >
-          Go back
-        </SecondaryButton>
-        <PrimaryButton
-          rightIcon={<Icon as={MaterialCommunityIcons} name="arrow-right" />}
-          onPress={handleTextApproved}
-        >
-          Looks good
-        </PrimaryButton>
-      </HStack>
+      <Box justifyContent="flex-end">
+        <Container>
+          <HStack justifyContent="space-between" py={8}>
+            <SecondaryButton
+              leftIcon={<Icon as={MaterialCommunityIcons} name="arrow-left" />}
+              onPress={goBack}
+            >
+              Go back
+            </SecondaryButton>
+            <PrimaryButton
+              rightIcon={
+                <Icon as={MaterialCommunityIcons} name="arrow-right" />
+              }
+              onPress={handleTextApproved}
+            >
+              Looks good
+            </PrimaryButton>
+          </HStack>
+        </Container>
+      </Box>
     </VStack>
   );
 };

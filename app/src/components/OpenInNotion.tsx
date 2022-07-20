@@ -1,14 +1,18 @@
 import { Button, Text } from 'native-base';
 import React from 'react';
+import { Linking } from 'react-native';
 import { NotionIcon } from './NotionIcon';
 
 interface OpenInNotionProps {
-  href: string;
+  url: string;
 }
 
-export const OpenInNotion: React.FC<OpenInNotionProps> = ({ href }) => {
-  const handleOpenInNotion = () => {
-    console.log('open in notion');
+export const OpenInNotion: React.FC<OpenInNotionProps> = ({ url }) => {
+  const handleOpenInNotion = async () => {
+    const canOpen = await Linking.canOpenURL(url);
+    if (!canOpen) return;
+
+    await Linking.openURL(url);
   };
 
   return (

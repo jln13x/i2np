@@ -1,11 +1,12 @@
+import { Container } from '@/components/Container';
+import { Error } from '@/components/states/Error';
 import {
   NoResultsFound,
-  SearchError,
   SearchResults,
 } from '@/features/page-database-search/components';
 import { usePageDatabaseSearch } from '@/features/page-database-search/queries/use-page-database-search';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Input, ScrollView, Text } from 'native-base';
+import { Center, Input, ScrollView, Text, VStack } from 'native-base';
 import { useState } from 'react';
 import { Layout } from '../components/Layout';
 import { Spinner } from '../components/Spinner';
@@ -18,14 +19,15 @@ export const SearchPageOrDatabaseScreen = () => {
   const {
     data: searchResults,
     isLoading,
-    isError,
+    isError: isSearchError,
+    remove: resetSearch,
   } = usePageDatabaseSearch(search);
 
   const { selectedText } = useSelectedText();
   const { navigate } = useNavigation();
 
   if (!selectedText) {
-    navigate('Image');
+    navigate('UploadImage');
     return null;
   }
 
@@ -35,38 +37,55 @@ export const SearchPageOrDatabaseScreen = () => {
 
   const results = searchResults?.results;
 
+  const handleReset = () => {
+    setSearch('');
+    resetSearch();
+  };
+
+  if (isSearchError) {
+    return (
+      <Layout>
+        <Center h="full">
+          <Error retry={handleReset} />;
+        </Center>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      <Box alignSelf="stretch" h="full" pt={56}>
-        <Box w="full">
-          <Text fontSize="2xl" textAlign="center">
-            Where to put your text?
-          </Text>
-        </Box>
-        <Input
-          placeholder="Enter the title of a page or database..."
-          _focus={{ borderColor: 'indigo.400', bg: 'gray.50' }}
-          onChangeText={onSearchChange}
-          rightElement={isLoading ? <Spinner mr={2} /> : undefined}
-          mt={8}
-        />
-        {results && results.length > 0 && (
-          <Box mt={8} alignSelf="stretch">
-            <Text textTransform="uppercase" fontSize="xs" color="dark.200">
-              choose a page or database
+      <Container>
+        <VStack h="full">
+          <VStack alignItems="center" justifyContent="center" pt={24}>
+            <Text fontSize="2xl" textAlign="center">
+              Where to put your text?
             </Text>
-            <ScrollView w="full" h="xs" maxH="sm" pb={4} mt={2}>
-              <SearchResults results={results} />
-            </ScrollView>
-            <Text fontSize="2xs" color="dark.400" mt={1}>
-              Showing only the top 3 matches
-            </Text>
-          </Box>
-        )}
+            <Input
+              placeholder="Enter the title of a page or database..."
+              _focus={{ borderColor: 'indigo.400', bg: 'gray.50' }}
+              onChangeText={onSearchChange}
+              rightElement={isLoading ? <Spinner mr={2} /> : undefined}
+              mt={8}
+            />
+          </VStack>
 
-        {results && results.length === 0 && <NoResultsFound />}
-        {isError && <SearchError />}
-      </Box>
+          {results && results.length > 0 && (
+            <VStack mt={8} flex={1}>
+              <Text textTransform="uppercase" fontSize="xs" color="dark.200">
+                choose a page or database
+              </Text>
+              <ScrollView mt={1}>
+                <SearchResults results={results} />
+              </ScrollView>
+              <Text fontSize="2xs" color="dark.400" mt={1} py={4} bg="white">
+                Showing only the top 3 matches
+              </Text>
+            </VStack>
+          )}
+
+          {results && results.length === 0 && <NoResultsFound />}
+        </VStack>
+      </Container>
     </Layout>
   );
 };
