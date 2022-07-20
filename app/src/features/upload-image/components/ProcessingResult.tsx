@@ -34,7 +34,7 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
         </Text>
       </Container>
 
-      <EditDetectedText text={selectedText} />
+      <EditDetectedText />
 
       <Box justifyContent="flex-end">
         <Container>

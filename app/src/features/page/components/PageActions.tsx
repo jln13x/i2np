@@ -74,7 +74,7 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
         </Text>
         <Text fontSize="2xl">{title}</Text>
       </Container>
-      <EditDetectedText text={text} />
+      <EditDetectedText />
       <Box py={8}>
         <Container>
           <Text textAlign="center" fontSize="xs" alignSelf="center">

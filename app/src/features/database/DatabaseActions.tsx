@@ -44,7 +44,7 @@ export const DatabaseActions: React.FC<DatabaseActionsProps> = ({
       </Text>
       <Text fontSize="2xl">{title}</Text>
       <Box alignSelf="stretch" my={6}>
-        <EditDetectedText text={text} />
+        <EditDetectedText/>
       </Box>
       <Text textAlign="center" fontSize="xs" alignSelf="center">
         You will get the link to the page afterwards to add addtional properties

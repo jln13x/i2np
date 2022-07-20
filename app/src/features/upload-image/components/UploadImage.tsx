@@ -28,7 +28,13 @@ export const UploadImage = () => {
     isLoading: isProcessingImage,
   } = useProcessImage();
 
-  const { selectedText, setSelectedText } = useSelectedText();
+  const {
+    selectedText,
+    setSelectedText,
+    setDetectedText,
+    reset,
+    detectedText,
+  } = useSelectedText();
 
   const uploadImage = async (type: 'take' | 'select') => {
     const cameraResult =
@@ -48,6 +54,7 @@ export const UploadImage = () => {
       },
       {
         onSuccess: ({ detectedText }) => {
+          setDetectedText(detectedText);
           setSelectedText(detectedText);
         },
       }
@@ -55,7 +62,7 @@ export const UploadImage = () => {
   };
 
   const handleReset = () => {
-    setSelectedText(undefined);
+    reset();
     resetProcessImage();
   };
 
@@ -73,11 +80,13 @@ export const UploadImage = () => {
       </Center>
     );
 
-  if (processedImage && selectedText) {
+  if (processedImage)
     return (
-      <ProcessingResult goBack={handleReset} selectedText={selectedText} />
+      <ProcessingResult
+        goBack={handleReset}
+        selectedText={selectedText || ''}
+      />
     );
-  }
 
   return (
     <Center h="full">

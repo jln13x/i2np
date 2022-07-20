@@ -1,23 +1,19 @@
 import { useSelectedText } from '@/stores/selected-text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box, Button, Icon, Text } from 'native-base';
-import { useRef } from 'react';
 import { Container } from './Container';
 import { Textarea } from './Textarea';
 
-interface EditDetectedTextProps {
-  text: string;
-}
-
-export const EditDetectedText: React.FC<EditDetectedTextProps> = ({ text }) => {
-  const detectedText = useRef<string>(text);
-  const { setSelectedText } = useSelectedText();
+export const EditDetectedText = () => {
+  const { selectedText, detectedText, setSelectedText } = useSelectedText();
 
   const handleRevertChanges = () => {
-    setSelectedText(detectedText.current);
+    detectedText && setSelectedText(detectedText);
   };
 
-  const isDirty = text !== detectedText.current;
+  const isDirty = selectedText !== detectedText;
+
+  if (!selectedText) return null;
 
   return (
     <Box flex={1}>
@@ -41,14 +37,14 @@ export const EditDetectedText: React.FC<EditDetectedTextProps> = ({ text }) => {
           />
         }
       >
-        <Text fontSize="xs">Revert your changes</Text>
+        <Text fontSize="xs">Revert all your changes</Text>
       </Button>
       <Box flex={1} bg="gray.100">
         <Container>
           <Textarea
             py={2}
             h="full"
-            value={text}
+            value={selectedText}
             rounded="md"
             onChangeText={setSelectedText}
           />
