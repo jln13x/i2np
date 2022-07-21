@@ -28,13 +28,8 @@ export const UploadImage = () => {
     isLoading: isProcessingImage,
   } = useProcessImage();
 
-  const {
-    selectedText,
-    setSelectedText,
-    setDetectedText,
-    reset,
-    detectedText,
-  } = useSelectedText();
+  const { setSelectedText, setDetectedText, reset, selectedText } =
+    useSelectedText();
 
   const uploadImage = async (type: 'take' | 'select') => {
     const cameraResult =
@@ -80,12 +75,9 @@ export const UploadImage = () => {
       </Center>
     );
 
-  if (processedImage)
+  if (processedImage && selectedText !== undefined)
     return (
-      <ProcessingResult
-        goBack={handleReset}
-        selectedText={selectedText || ''}
-      />
+      <ProcessingResult goBack={handleReset} selectedText={selectedText} />
     );
 
   return (

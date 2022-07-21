@@ -6,9 +6,11 @@ import {
 import { Center } from 'native-base';
 import { PropsWithChildren } from 'react';
 import { useMeQuery } from '../user/queries/use-me-query';
+import { useJwt } from './queries/use-jwt';
 
-export const AuthenticationLayer: React.FC<PropsWithChildren<unknown>> = () => {
-  const { data: me, isLoading: isLoadingMe } = useMeQuery();
+export const AuthenticationLayer: React.FC<PropsWithChildren> = () => {
+  const { data: jwt } = useJwt();
+  const { data: me, isLoading: isLoadingMe } = useMeQuery(jwt);
 
   if (isLoadingMe) {
     return (

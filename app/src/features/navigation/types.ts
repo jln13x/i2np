@@ -12,6 +12,7 @@ export type AuthenticatedScreensStack = {
   SearchPageOrDatabase: undefined;
   Result: undefined;
   CreatePage: undefined;
+  Profile: undefined;
 };
 
 export type UnauthenticatedScreensStack = {

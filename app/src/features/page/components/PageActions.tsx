@@ -25,13 +25,13 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
   const { navigate } = useNavigation();
   const { title, type, id } = page;
   const { selectedText: text } = useSelectedText();
-
+  
   if (type !== 'page') {
     navigate('SearchPageOrDatabase');
     return null;
   }
 
-  if (!text) {
+  if (text === undefined) {
     navigate('UploadImage');
     return null;
   }

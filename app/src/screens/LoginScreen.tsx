@@ -2,7 +2,7 @@ import { BrandLogo } from '@/components/BrandLogo';
 import { NotionButton } from '@/components/button/NotionButton';
 import { AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI } from '@env';
 import { useAuthRequest } from 'expo-auth-session';
-import { Box, Center, Text } from 'native-base';
+import { Box, Button, Center, Text } from 'native-base';
 import { Layout } from '../components/Layout';
 import { useLogin } from '../features/auth/mutations/use-login';
 
@@ -34,8 +34,8 @@ export const LoginScreen = () => {
   };
 
   return (
-    <Layout>
-      <Center w="full" alignSelf="stretch" mt={32}>
+    <Layout hideHeader>
+      <Center w="full" h="full">
         <BrandLogo />
         <Box mt={16}>
           {isLoggingIn ? (
@@ -52,6 +52,7 @@ export const LoginScreen = () => {
             <NotionButton text="Login with Notion" onPress={loginWithNotion} />
           )}
         </Box>
+        <Button onPress={() => login({ code: '123' })}>Force login</Button>
       </Center>
     </Layout>
   );

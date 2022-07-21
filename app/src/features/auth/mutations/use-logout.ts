@@ -11,10 +11,10 @@ export const useLogout = () => {
     mutationFn: () => SecureStore.deleteItemAsync(API_JWT_KEY),
     onMutate: async () => {
       await queryClient.cancelQueries(jwtKeys.jwt);
+      await queryClient.cancelQueries(userKeys.me);
     },
     onSuccess: async () => {
       queryClient.resetQueries(jwtKeys.jwt);
-      queryClient.resetQueries(userKeys.me);
     },
   });
 };

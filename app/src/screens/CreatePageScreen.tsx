@@ -3,6 +3,7 @@ import { Container } from '@/components/Container';
 import { Input } from '@/components/Input';
 import { Layout } from '@/components/Layout';
 import { Error } from '@/components/states/Error';
+import { Title } from '@/components/Title';
 import { CreatePageRequestParentTypeEnum } from '@/generated/api/interfaces';
 import { useSelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
@@ -94,10 +95,7 @@ export const CreatePageScreen = () => {
             {subtitle}
           </Text>
           <Link href={url}>
-            <Text fontSize="2xl">
-              {emoji ? `${emoji} ` : ''}
-              {parentTitle}
-            </Text>
+            <Title title={parentTitle} emoji={emoji} />
             <Icon
               as={MaterialCommunityIcons}
               name="open-in-new"

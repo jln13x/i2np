@@ -50,6 +50,7 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
                 <Icon as={MaterialCommunityIcons} name="arrow-right" />
               }
               onPress={handleTextApproved}
+              isDisabled={selectedText === ''}
             >
               Looks good
             </PrimaryButton>

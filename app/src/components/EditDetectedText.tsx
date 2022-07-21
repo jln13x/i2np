@@ -13,7 +13,7 @@ export const EditDetectedText = () => {
 
   const isDirty = selectedText !== detectedText;
 
-  if (!selectedText) return null;
+  if (selectedText === undefined) return null;
 
   return (
     <Box flex={1}>

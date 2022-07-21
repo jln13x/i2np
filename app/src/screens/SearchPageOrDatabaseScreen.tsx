@@ -26,7 +26,7 @@ export const SearchPageOrDatabaseScreen = () => {
   const { selectedText } = useSelectedText();
   const { navigate } = useNavigation();
 
-  if (!selectedText) {
+  if (selectedText === undefined) {
     navigate('UploadImage');
     return null;
   }
