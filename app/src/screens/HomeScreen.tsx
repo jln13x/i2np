@@ -1,17 +1,13 @@
 import { Container } from '@/components/Container';
+import { ImageTextSearchFeature } from '@/features/dashboard/components/ImageTextSearchFeature';
+import { ScanToPageFeature } from '@/features/dashboard/components/ScanToPageFeature';
 import { TextToPageFeature } from '@/features/dashboard/components/TextToPageFeature';
 import { useUser } from '@/features/user/queries/use-user';
-import { useNavigation } from '@react-navigation/native';
 import { Center, Text, VStack } from 'native-base';
 import { Layout } from '../components/Layout';
 
 export const HomeScreen = () => {
-  const { navigate } = useNavigation();
   const user = useUser();
-
-  const navigateToImageScreen = () => {
-    navigate('UploadImage');
-  };
 
   return (
     <Layout>
@@ -24,13 +20,12 @@ export const HomeScreen = () => {
           <VStack space={6} mt={16}>
             <TextToPageFeature />
           </VStack>
+          <VStack space={6} mt={24}>
+            <ImageTextSearchFeature />
+            <ScanToPageFeature />
+          </VStack>
         </Container>
       </Center>
     </Layout>
   );
 };
-
-/**
-                Detects text in any image and uploads it to Notion as a page.
- * 
- */

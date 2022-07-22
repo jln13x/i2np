@@ -76,9 +76,7 @@ export const UploadImage = () => {
     );
 
   if (processedImage && selectedText !== undefined)
-    return (
-      <ProcessingResult goBack={handleReset} selectedText={selectedText} />
-    );
+    return <ProcessingResult selectedText={selectedText} />;
 
   return (
     <Center h="full">

@@ -1,5 +1,4 @@
 import { PrimaryButton } from '@/components/button/PrimaryButton';
-import { SecondaryButton } from '@/components/button/SecondaryButton';
 import { Container } from '@/components/Container';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -9,12 +8,10 @@ import React from 'react';
 
 interface ProcessingResultProps {
   selectedText: string;
-  goBack: () => void;
 }
 
 export const ProcessingResult: React.FC<ProcessingResultProps> = ({
   selectedText,
-  goBack,
 }) => {
   const { navigate } = useNavigation();
 
@@ -38,13 +35,7 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
 
       <Box justifyContent="flex-end">
         <Container>
-          <HStack justifyContent="space-between" py={8}>
-            <SecondaryButton
-              leftIcon={<Icon as={MaterialCommunityIcons} name="arrow-left" />}
-              onPress={goBack}
-            >
-              Go back
-            </SecondaryButton>
+          <HStack justifyContent="flex-end" py={8}>
             <PrimaryButton
               rightIcon={
                 <Icon as={MaterialCommunityIcons} name="arrow-right" />
