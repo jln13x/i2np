@@ -1,31 +1,31 @@
 import { userKeys } from '@/features/user/queries/query-key-factory';
 import { axios } from '@/lib/axios';
 import * as SecureStore from 'expo-secure-store';
-import { useRef } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { API_JWT_KEY } from '../constants';
 import { jwtKeys } from './query-key-factory';
 
 export const useJwt = () => {
-  const interceptorId = useRef<number>();
   const queryClient = useQueryClient();
 
   return useQuery(jwtKeys.jwt, {
     queryFn: () => SecureStore.getItemAsync(API_JWT_KEY),
     onSuccess: (jwt) => {
-      // Interceptor has been set already and the jwt was removed
-      if (!jwt && interceptorId.current !== undefined) {
-        queryClient.removeQueries(userKeys.me);
-        axios.interceptors.request.eject(interceptorId.current);
-        interceptorId.current = undefined;
+      clearAxiosJwtInterceptor();
+
+      if (!jwt) {
+        queryClient.removeQueries(userKeys.all);
+        return;
       }
 
-      // Interceptor has not been set yet and the jwt was added
-      if (jwt && interceptorId.current === undefined) {
-        interceptorId.current = addAxiosJwtInceptor(jwt);
-      }
+      addAxiosJwtInceptor(jwt);
     },
   });
+};
+
+const clearAxiosJwtInterceptor = () => {
+  // @ts-ignore
+  axios.interceptors.request.handlers = [];
 };
 
 const addAxiosJwtInceptor = (jwt: string) => {

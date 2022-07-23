@@ -5,7 +5,7 @@ import { userKeys } from './query-key-factory';
 
 export const useMeQuery = (jwt?: string | null) => {
   return useQuery<MeResponse>({
-    queryKey: userKeys.me,
+    queryKey: userKeys.jwt(jwt || ''),
     queryFn: async () => {
       const response = await axios.get('/notion/me');
       return response.data;

@@ -6,6 +6,7 @@ type SelectedResult = SearchResultResponse;
 interface SelectedResultState {
   selectedResult?: SelectedResult;
   setSelectedResult: (selectedResult?: SelectedResult) => void;
+  reset: () => void;
 }
 
 export const useSelectedResult = create<SelectedResultState>((set) => ({
@@ -14,4 +15,5 @@ export const useSelectedResult = create<SelectedResultState>((set) => ({
       ...state,
       selectedResult: selected,
     })),
+  reset: () => set((state) => ({ ...state, selectedResult: undefined })),
 }));

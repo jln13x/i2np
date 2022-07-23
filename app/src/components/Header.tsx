@@ -1,3 +1,4 @@
+import { useUser } from '@/features/user/queries/use-user';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, Icon, IconButton, Pressable } from 'native-base';
@@ -9,6 +10,7 @@ export const Header = () => {
   const { navigate, canGoBack, goBack } = useNavigation();
   const handleNavigateProfile = () => navigate('Profile');
   const handleNavigateHome = () => navigate('Home');
+  const { name } = useUser();
 
   const canNavigateBack = canGoBack();
 
@@ -27,7 +29,7 @@ export const Header = () => {
           <BrandLogo size="small" />
         </Pressable>
         <Pressable onPress={handleNavigateProfile}>
-          <Avatar letter="J" />
+          <Avatar letter={name.charAt(0)} />
         </Pressable>
       </HStack>
     </Container>

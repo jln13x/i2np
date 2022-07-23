@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Client } from '@notionhq/client';
 import { AccessTokenProviderService } from 'auth/access-token-provider.service';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { CreatePageResponse } from './response/create-page.response';
 import { MeResponse } from './response/me.response';
 import { SearchResultResponse } from './response/search-result.response';
 import { SearchResultsResponse } from './response/search-results.response';
-import { AccessToken, accessTokenSchema } from './schemas/access-token.schema';
+import { AccessTokenResponse, accessTokenResponseSchema } from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
 import { createPageSchema } from './schemas/create-page.schema';
 import { searchResponseSchema } from './schemas/search-schema';
@@ -21,7 +21,7 @@ import { textToNotionTitle } from './utils/text-to-notion-title';
 export class NotionService {
   constructor(private accessTokenProvider: AccessTokenProviderService) {}
 
-  async exchangeGrant(code: string): Promise<AccessToken> {
+  async exchangeGrant(code: string): Promise<AccessTokenResponse> {
     const auth = this.getBasicAuthForIntegration();
 
     const notionTokenEndpoint = NOTION.TOKEN_ENDPOINT;
@@ -43,7 +43,7 @@ export class NotionService {
       },
     );
 
-    return accessTokenSchema.parse(response.data);
+    return accessTokenResponseSchema.parse(response.data);
   }
 
   private getBasicAuthForIntegration = () => {

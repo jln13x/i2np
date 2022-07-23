@@ -17,7 +17,7 @@ model User {
 }
 
 model Account {
-  id          String @id @unique @default(cuid())
+  id          String @id @default(cuid())
   accountId   String @unique
   accessToken String @db.Text
   email       String

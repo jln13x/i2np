@@ -1,3 +1,4 @@
 export const userKeys = {
-  me: [{ scope: 'user', name: 'me' }],
+  all: [{ scope: 'user' }] as const,
+  jwt: (jwt: string) => [{ ...userKeys.all[0], jwt }] as const,
 };
