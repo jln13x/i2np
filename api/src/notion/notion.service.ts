@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Client } from '@notionhq/client';
+import { AccountService } from 'account/account.service';
 import { AccessTokenProviderService } from 'auth/access-token-provider.service';
 import axios from 'axios';
 import { NOTION } from './constants';
@@ -8,7 +9,11 @@ import { CreatePageResponse } from './response/create-page.response';
 import { MeResponse } from './response/me.response';
 import { SearchResultResponse } from './response/search-result.response';
 import { SearchResultsResponse } from './response/search-results.response';
-import { AccessTokenResponse, accessTokenResponseSchema } from './schemas/access-token.schema';
+import { WorkspaceResponse } from './response/workspace.response';
+import {
+  AccessTokenResponse,
+  accessTokenResponseSchema,
+} from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
 import { createPageSchema } from './schemas/create-page.schema';
 import { searchResponseSchema } from './schemas/search-schema';
@@ -19,7 +24,10 @@ import { textToNotionTitle } from './utils/text-to-notion-title';
 
 @Injectable()
 export class NotionService {
-  constructor(private accessTokenProvider: AccessTokenProviderService) {}
+  constructor(
+    private accessTokenProvider: AccessTokenProviderService,
+    private accountService: AccountService,
+  ) {}
 
   async exchangeGrant(code: string): Promise<AccessTokenResponse> {
     const auth = this.getBasicAuthForIntegration();
@@ -63,6 +71,7 @@ export class NotionService {
   async me() {
     const client = await this.getClient();
     const response = (await client.users.me({})) as unknown;
+
     const schema = botSchema.safeParse(response);
 
     if (!schema.success) throw new InvalidNotionResponseException();
@@ -74,7 +83,16 @@ export class NotionService {
       person: { email },
     } = schema.data.bot.owner.user;
 
-    return new MeResponse(id, name, email, avatarUrl);
+    const account = await this.accountService.getAccount();
+
+    const { workspaceId, workspaceName } = account;
+
+    const workspace: WorkspaceResponse = {
+      id: workspaceId,
+      name: workspaceName,
+    };
+
+    return new MeResponse(id, name, email, avatarUrl, workspace);
   }
 
   async search(query: string) {

@@ -7,3 +7,4 @@ export * from './process-image-request';
 export * from './process-image-response';
 export * from './search-result-response';
 export * from './search-results-response';
+export * from './workspace-response';
