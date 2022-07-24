@@ -64,7 +64,7 @@ export const UploadImage = () => {
   if (processingImageFailed)
     return (
       <Center h="full">
-        <Error retry={handleReset} />
+        <Error retry={handleReset} title="Couldn't process your image!" message="Make sure you choose an image with text in it."/>
       </Center>
     );
 

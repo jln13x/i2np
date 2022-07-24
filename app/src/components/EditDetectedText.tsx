@@ -16,37 +16,39 @@ export const EditDetectedText = () => {
   if (selectedText === undefined) return null;
 
   return (
-    <Box flex={1}>
-      <Button
-        opacity={isDirty ? 1 : 0}
-        disabled={!isDirty}
-        display="flex"
-        ml="auto"
-        variant="ghost"
-        onPress={handleRevertChanges}
-        p={1}
-        _pressed={{
-          bg: 'none',
-        }}
-        leftIcon={
-          <Icon
-            as={MaterialCommunityIcons}
-            name="undo"
-            color="black"
-            size="xs"
-          />
-        }
-      >
-        <Text fontSize="xs">Revert all your changes</Text>
-      </Button>
+    <Box flexGrow={1}>
+      <Container>
+        <Button
+          opacity={isDirty ? 1 : 0}
+          disabled={!isDirty}
+          display="flex"
+          ml="auto"
+          variant="ghost"
+          onPress={handleRevertChanges}
+          _pressed={{
+            bg: 'none',
+          }}
+          leftIcon={
+            <Icon
+              as={MaterialCommunityIcons}
+              name="undo"
+              color="black"
+              size="xs"
+            />
+          }
+        >
+          <Text fontSize="xs">Revert all your changes</Text>
+        </Button>
+      </Container>
       <Box flex={1} bg="gray.100">
         <Container>
           <Textarea
             py={2}
-            h="full"
             value={selectedText}
             rounded="md"
             onChangeText={setSelectedText}
+            h="full"
+            minH="24"
           />
         </Container>
       </Box>

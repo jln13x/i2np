@@ -8,9 +8,14 @@ import animation from './error-animation.json';
 
 interface ErrorProps {
   retry: () => void;
+  title?: string;
+  message?: string;
 }
 
-export const Error: React.FC<ErrorProps> = ({ retry }) => {
+const DEFAULT_TITLE = 'Oh no! Something went wrong.';
+const DEFAULT_MSG = 'Please tr^y again.';
+
+export const Error: React.FC<ErrorProps> = ({ retry, title, message }) => {
   const { navigate } = useNavigation();
 
   const navigateHome = () => {
@@ -34,15 +39,16 @@ export const Error: React.FC<ErrorProps> = ({ retry }) => {
           }}
         />
       </Box>
-      <Text fontSize="xl">Oh no! Something went wrong.</Text>
-      <Text fontSize="md">Please try again.</Text>
-
-      <PrimaryButton onPress={handleRetry} mt={8}>
-        Try again
-      </PrimaryButton>
-      <SecondaryButton onPress={navigateHome} mt={4}>
-        Return to Dashboard
-      </SecondaryButton>
+      <Text fontSize="xl">{title || DEFAULT_TITLE}</Text>
+      <Text fontSize="md">{message || DEFAULT_MSG}</Text>
+      <VStack>
+        <PrimaryButton onPress={handleRetry} mt={8}>
+          Try again
+        </PrimaryButton>
+        <SecondaryButton onPress={navigateHome} mt={4}>
+          Return to Dashboard
+        </SecondaryButton>
+      </VStack>
       <Text fontSize="xs" mt={12}>
         If the error persist please contact the support.
       </Text>

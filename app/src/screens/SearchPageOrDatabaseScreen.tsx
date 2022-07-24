@@ -56,7 +56,7 @@ export const SearchPageOrDatabaseScreen = () => {
     <Layout>
       <Container>
         <VStack h="full">
-          <VStack alignItems="center" justifyContent="center" pt={24}>
+          <VStack alignItems="center" justifyContent="center" pt={12}>
             <Text fontSize="2xl" textAlign="center">
               Where to put your text?
             </Text>
@@ -74,12 +74,15 @@ export const SearchPageOrDatabaseScreen = () => {
               <Text textTransform="uppercase" fontSize="xs" color="dark.200">
                 choose a page or database
               </Text>
-              <ScrollView mt={1}>
+              <ScrollView mt={1} contentContainerStyle={{
+                display: 'flex',
+                justifyContent: "space-between"
+              }}>
                 <SearchResults results={results} />
+                <Text fontSize="2xs" color="dark.400" mt={1} py={4} bg="white">
+                  Showing only the top 3 matches
+                </Text>
               </ScrollView>
-              <Text fontSize="2xs" color="dark.400" mt={1} py={4} bg="white">
-                Showing only the top 3 matches
-              </Text>
             </VStack>
           )}
 

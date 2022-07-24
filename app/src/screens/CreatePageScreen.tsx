@@ -114,7 +114,7 @@ export const CreatePageScreen = () => {
               isRequired={true}
               mt={2}
             />
-            <Box mt={12} h="12">
+            <Box mt={8} h="12">
               {title && (
                 <PrimaryButton
                   onPress={handleCreatePage}

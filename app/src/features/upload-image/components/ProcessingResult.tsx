@@ -3,7 +3,7 @@ import { Container } from '@/components/Container';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, HStack, Icon, Text, VStack } from 'native-base';
+import { Box, HStack, Icon, ScrollView, Text, VStack } from 'native-base';
 import React from 'react';
 
 interface ProcessingResultProps {
@@ -30,24 +30,31 @@ export const ProcessingResult: React.FC<ProcessingResultProps> = ({
           needed.
         </Text>
       </Container>
-
-      <EditDetectedText />
-
-      <Box justifyContent="flex-end">
-        <Container>
-          <HStack justifyContent="flex-end" py={8}>
-            <PrimaryButton
-              rightIcon={
-                <Icon as={MaterialCommunityIcons} name="arrow-right" />
-              }
-              onPress={handleTextApproved}
-              isDisabled={selectedText === ''}
-            >
-              Looks good
-            </PrimaryButton>
-          </HStack>
-        </Container>
-      </Box>
+      <ScrollView
+        flex={1}
+        contentContainerStyle={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexGrow: 1,
+        }}
+      >
+        <EditDetectedText />
+        <Box>
+          <Container>
+            <HStack justifyContent="flex-end" py={8}>
+              <PrimaryButton
+                rightIcon={
+                  <Icon as={MaterialCommunityIcons} name="arrow-right" />
+                }
+                onPress={handleTextApproved}
+                isDisabled={selectedText === ''}
+              >
+                Looks good
+              </PrimaryButton>
+            </HStack>
+          </Container>
+        </Box>
+      </ScrollView>
     </VStack>
   );
 };
