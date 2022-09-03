@@ -13,6 +13,7 @@
  */
 
 
+import { WorkspaceResponse } from './workspace-response';
 
 /**
  * 
@@ -44,5 +45,11 @@ export interface MeResponse {
      * @memberof MeResponse
      */
     'avatarUrl': string | null;
+    /**
+     * 
+     * @type {WorkspaceResponse}
+     * @memberof MeResponse
+     */
+    'workspace': WorkspaceResponse;
 }
 

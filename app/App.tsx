@@ -8,18 +8,6 @@ import { useEffect } from 'react';
 import { AppState, AppStateStatus, Platform } from 'react-native';
 import { focusManager, onlineManager, QueryClientProvider } from 'react-query';
 
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList {
-      Login: undefined;
-      Image: undefined;
-      Notion: undefined;
-      Result: undefined;
-      CreateSubpage: undefined;
-    }
-  }
-}
-
 onlineManager.setEventListener((setOnline) => {
   return NetInfo.addEventListener((state) => {
     const { isConnected } = state;
@@ -46,8 +34,6 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <AuthenticationLayer />
-          {/* <SafeAreaProvider> */}
-          {/* </SafeAreaProvider> */}
         </NavigationContainer>
       </QueryClientProvider>
     </NativeBaseProvider>

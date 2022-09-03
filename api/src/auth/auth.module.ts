@@ -1,5 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { AccountModule } from 'account/account.module';
 import { NotionModule } from 'notion/notion.module';
 import { PrismaModule } from 'prisma/prisma.module';
 import { UserModule } from 'user/user.module';
@@ -18,6 +19,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     }),
     forwardRef(() => UserModule),
     forwardRef(() => NotionModule),
+    AccountModule,
   ],
   controllers: [AuthController],
   providers: [

@@ -1,21 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { Client } from '@notionhq/client';
+import { AccountService } from 'account/account.service';
 import { AccessTokenProviderService } from 'auth/access-token-provider.service';
 import axios from 'axios';
 import { NOTION } from './constants';
 import { InvalidNotionResponseException } from './exceptions/invalid-notion-response.exception';
+import { CreatePageResponse } from './response/create-page.response';
 import { MeResponse } from './response/me.response';
 import { SearchResultResponse } from './response/search-result.response';
-import { AccessToken, accessTokenSchema } from './schemas/access-token.schema';
+import { SearchResultsResponse } from './response/search-results.response';
+import { WorkspaceResponse } from './response/workspace.response';
+import {
+  AccessTokenResponse,
+  accessTokenResponseSchema,
+} from './schemas/access-token.schema';
 import { botSchema } from './schemas/bot.schema';
+import { createPageSchema } from './schemas/create-page.schema';
 import { searchResponseSchema } from './schemas/search-schema';
 import { titlePropertiesResponseSchema } from './schemas/title-properties.schema';
+import { PageType } from './types';
+import { textToNotionParagraphs } from './utils/text-to-notion-paragraphs';
+import { textToNotionTitle } from './utils/text-to-notion-title';
 
 @Injectable()
 export class NotionService {
-  constructor(private accessTokenProvider: AccessTokenProviderService) {}
+  constructor(
+    private accessTokenProvider: AccessTokenProviderService,
+    private accountService: AccountService,
+  ) {}
 
-  async exchangeGrant(code: string): Promise<AccessToken> {
+  async exchangeGrant(code: string): Promise<AccessTokenResponse> {
     const auth = this.getBasicAuthForIntegration();
 
     const notionTokenEndpoint = NOTION.TOKEN_ENDPOINT;
@@ -37,7 +51,7 @@ export class NotionService {
       },
     );
 
-    return accessTokenSchema.parse(response.data);
+    return accessTokenResponseSchema.parse(response.data);
   }
 
   private getBasicAuthForIntegration = () => {
@@ -57,6 +71,7 @@ export class NotionService {
   async me() {
     const client = await this.getClient();
     const response = (await client.users.me({})) as unknown;
+
     const schema = botSchema.safeParse(response);
 
     if (!schema.success) throw new InvalidNotionResponseException();
@@ -68,14 +83,23 @@ export class NotionService {
       person: { email },
     } = schema.data.bot.owner.user;
 
-    return new MeResponse(id, name, email, avatarUrl);
+    const account = await this.accountService.getAccount();
+
+    const { workspaceId, workspaceName } = account;
+
+    const workspace: WorkspaceResponse = {
+      id: workspaceId,
+      name: workspaceName,
+    };
+
+    return new MeResponse(id, name, email, avatarUrl, workspace);
   }
 
   async search(query: string) {
     const client = await this.getClient();
 
     const response = (await client.search({
-      page_size: 5,
+      page_size: 3,
       query,
     })) as unknown;
 
@@ -104,17 +128,21 @@ export class NotionService {
       if (title === '') continue;
 
       const emoji = result?.icon?.type === 'emoji' ? result.icon.emoji : null;
-      const searchResult = new SearchResultResponse(
-        result.id,
-        result.url,
+
+      const searchResult: SearchResultResponse = {
+        id: result.id,
+        url: result.url,
         title,
         emoji,
-      );
+        type: result.object === 'page' ? PageType.PAGE : PageType.DATABASE,
+      };
 
       searchResults.push(searchResult);
     }
 
-    return searchResults;
+    return {
+      results: searchResults,
+    } as SearchResultsResponse;
   }
 
   async pageTitle(pageId: string): Promise<string> {
@@ -141,5 +169,61 @@ export class NotionService {
     });
 
     return response;
+  }
+
+  async appendToPage(pageId: string, text: string) {
+    const client = await this.getClient();
+    const formatted = textToNotionParagraphs(text);
+
+    return client.blocks.children.append({
+      block_id: pageId,
+      children: formatted,
+    });
+  }
+
+  async createPage(
+    parentId: string,
+    title: string,
+    text: string,
+    parentType: PageType,
+  ) {
+    const client = await this.getClient();
+    const formatted = textToNotionParagraphs(text);
+
+    let response: unknown;
+
+    if (parentType === PageType.PAGE) {
+      response = (await client.pages.create({
+        parent: {
+          page_id: parentId,
+          type: 'page_id',
+        },
+        properties: {
+          title: textToNotionTitle(title),
+        },
+        children: formatted,
+      })) as unknown;
+    }
+
+    if (parentType === PageType.DATABASE) {
+      response = (await client.pages.create({
+        parent: {
+          database_id: parentId,
+          type: 'database_id',
+        },
+        properties: {
+          title: textToNotionTitle(title),
+        },
+        children: formatted,
+      })) as unknown;
+    }
+
+    const schema = createPageSchema.safeParse(response);
+
+    if (!schema.success) throw new InvalidNotionResponseException(schema.error);
+
+    return {
+      url: schema.data.url,
+    } as CreatePageResponse;
   }
 }

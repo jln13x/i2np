@@ -1,16 +1,11 @@
-import { useJwt } from '@/features/auth/queries/use-jwt';
 import { MeResponse } from '@/generated/api/interfaces';
 import { axios } from '@/lib/axios';
 import { useQuery } from 'react-query';
 import { userKeys } from './query-key-factory';
 
-export const useMeQuery = () => {
-  const { data: jwt } = useJwt();
-  console.log(jwt)
-
-
+export const useMeQuery = (jwt?: string | null) => {
   return useQuery<MeResponse>({
-    queryKey: userKeys.me,
+    queryKey: userKeys.jwt(jwt || ''),
     queryFn: async () => {
       const response = await axios.get('/notion/me');
       return response.data;

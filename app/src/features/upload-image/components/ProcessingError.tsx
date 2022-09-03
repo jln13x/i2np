@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Icon, Text, VStack } from 'native-base';
 import { PropsWithChildren } from 'react';
 
-export const ProcessingError: React.FC<PropsWithChildren<{}>> = ({
+export const ProcessingError: React.FC<PropsWithChildren<unknown>> = ({
   children,
 }) => {
   return (

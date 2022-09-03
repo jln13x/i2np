@@ -1,48 +1,31 @@
-import { NotionIcon } from '@/components/NotionIcon';
+import { Container } from '@/components/Container';
+import { ImageTextSearchFeature } from '@/features/dashboard/components/ImageTextSearchFeature';
+import { ScanToPageFeature } from '@/features/dashboard/components/ScanToPageFeature';
+import { TextToPageFeature } from '@/features/dashboard/components/TextToPageFeature';
 import { useUser } from '@/features/user/queries/use-user';
-import { useNavigation } from '@react-navigation/native';
-import { HStack, Pressable, Text } from 'native-base';
-import React from 'react';
+import { Center, Text, VStack } from 'native-base';
 import { Layout } from '../components/Layout';
 
 export const HomeScreen = () => {
-  const { navigate } = useNavigation();
   const user = useUser();
-
-  const navigateToImageScreen = () => {
-    navigate('Image');
-  };
 
   return (
     <Layout>
-      <Text fontSize="4xl" fontWeight={700}>
-        Nice to see you, <Text color="brand">{user.name}</Text>
-        👋
-      </Text>
-      <Pressable
-        mt={16}
-        onPress={navigateToImageScreen}
-        bg="white"
-        py={4}
-        px={4}
-        shadow="6"
-      >
-        <HStack alignItems="center" space={4}>
-          <NotionIcon />
-          <Text
-            fontSize="lg"
-            letterSpacing="md"
-            textTransform="uppercase"
-            color="brand"
-            fontWeight="bold"
-          >
-            Image Processor
+      <Center h="full">
+        <Container h="full" pt={8}>
+          <Text fontSize="4xl" fontWeight={700}>
+            Nice to see you, <Text color="brand">{user.name}</Text>
+            👋
           </Text>
-        </HStack>
-        <Text fontSize="sm" color="gray.400" fontWeight="light">
-          Detects text in any image and uploads it to Notion as a page.
-        </Text>
-      </Pressable>
+          <VStack space={6} mt={16}>
+            <TextToPageFeature />
+          </VStack>
+          <VStack space={6} mt={24}>
+            <ImageTextSearchFeature />
+            <ScanToPageFeature />
+          </VStack>
+        </Container>
+      </Center>
     </Layout>
   );
 };

@@ -7,13 +7,9 @@ export const useSetJwt = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: 'set-jwt',
     mutationFn: (jwt: string) => SecureStore.setItemAsync(API_JWT_KEY, jwt),
-    onMutate: async (jwt) => {
-      await queryClient.cancelQueries({
-        queryKey: jwtKeys.jwt,
-      });
-
-      queryClient.setQueryData<string | undefined>(jwtKeys.jwt, jwt);
+    onSuccess: () => {
       queryClient.invalidateQueries(jwtKeys.jwt);
     },
   });

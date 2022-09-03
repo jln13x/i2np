@@ -1,27 +1,14 @@
 import { BrandLogo } from '@/components/BrandLogo';
 import { NotionButton } from '@/components/button/NotionButton';
-import { AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI } from '@env';
-import { useAuthRequest } from 'expo-auth-session';
+import { PrimaryButton } from '@/components/button/PrimaryButton';
+import { useAuthorize } from '@/features/auth/mutations/use-authorize';
 import { Box, Center, Text } from 'native-base';
 import { Layout } from '../components/Layout';
 import { useLogin } from '../features/auth/mutations/use-login';
 
-export const LoginScreen = ({}) => {
+export const LoginScreen = () => {
   const { mutate: login, isLoading: isLoggingIn } = useLogin();
-
-  const [_, __, promptAsync] = useAuthRequest(
-    {
-      clientId: CLIENT_ID,
-      redirectUri: REDIRECT_URI,
-      responseType: 'code',
-      extraParams: {
-        owner: 'user',
-      },
-    },
-    {
-      authorizationEndpoint: AUTHORIZATION_ENDPOINT,
-    }
-  );
+  const { promptAsync } = useAuthorize();
 
   const loginWithNotion = async () => {
     const notionResponse = await promptAsync({
@@ -35,7 +22,7 @@ export const LoginScreen = ({}) => {
 
   return (
     <Layout>
-      <Center w="full" alignSelf="stretch" mt={32}>
+      <Center w="full" h="full">
         <BrandLogo />
         <Box mt={16}>
           {isLoggingIn ? (
@@ -52,6 +39,9 @@ export const LoginScreen = ({}) => {
             <NotionButton text="Login with Notion" onPress={loginWithNotion} />
           )}
         </Box>
+        <PrimaryButton mt={8} onPress={() => login({ code: '123' })}>
+          Force login
+        </PrimaryButton>
       </Center>
     </Layout>
   );

@@ -1,7 +1,0 @@
-{
-  "exportall.config.relExclusion": [
-    "/app/src/features",
-    "/app/src/features/auth/context",
-    "/app/src/features/auth/components/screens"
-  ]
-}

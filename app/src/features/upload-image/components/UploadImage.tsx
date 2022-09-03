@@ -1,4 +1,4 @@
-import { PrimaryButton } from '@/components/button/PrimaryButton';
+import { Error } from '@/components/states/Error';
 import { useSelectedText } from '@/stores/selected-text';
 import {
   ImagePickerOptions,
@@ -6,10 +6,9 @@ import {
   launchImageLibraryAsync,
   MediaTypeOptions,
 } from 'expo-image-picker';
-import { Text, VStack } from 'native-base';
+import { Center, Text, VStack } from 'native-base';
 import { useProcessImage } from '../mutations/use-process-image';
 import { Processing } from './Processing';
-import { ProcessingError } from './ProcessingError';
 import { ProcessingResult } from './ProcessingResult';
 import { UploadImagePressable } from './UploadImagePressable';
 
@@ -29,7 +28,8 @@ export const UploadImage = () => {
     isLoading: isProcessingImage,
   } = useProcessImage();
 
-  const { selectedText, setSelectedText } = useSelectedText();
+  const { setSelectedText, setDetectedText, reset, selectedText } =
+    useSelectedText();
 
   const uploadImage = async (type: 'take' | 'select') => {
     const cameraResult =
@@ -49,6 +49,7 @@ export const UploadImage = () => {
       },
       {
         onSuccess: ({ detectedText }) => {
+          setDetectedText(detectedText);
           setSelectedText(detectedText);
         },
       }
@@ -56,52 +57,49 @@ export const UploadImage = () => {
   };
 
   const handleReset = () => {
-    setSelectedText(undefined);
+    reset();
     resetProcessImage();
   };
 
   if (processingImageFailed)
     return (
-      <ProcessingError>
-        <PrimaryButton
-          variant="outline"
-          colorScheme="indigo"
-          mt={4}
-          onPress={handleReset}
-        >
-          Retry
-        </PrimaryButton>
-      </ProcessingError>
+      <Center h="full">
+        <Error retry={handleReset} title="Couldn't process your image!" message="Make sure you choose an image with text in it."/>
+      </Center>
     );
 
-  if (isProcessingImage) return <Processing />;
-
-  if (processedImage && selectedText) {
+  if (isProcessingImage)
     return (
-      <ProcessingResult goBack={handleReset} selectedText={selectedText} />
+      <Center h="full">
+        <Processing />
+      </Center>
     );
-  }
+
+  if (processedImage && selectedText !== undefined)
+    return <ProcessingResult selectedText={selectedText} />;
 
   return (
-    <VStack space={8}>
-      <UploadImagePressable
-        onPress={() => uploadImage('take')}
-        icon="camera"
-        text="Take a picture"
-      />
-      <Text
-        textAlign="center"
-        textTransform="uppercase"
-        letterSpacing={2}
-        fontSize="lg"
-      >
-        or...
-      </Text>
-      <UploadImagePressable
-        onPress={() => uploadImage('select')}
-        icon="folder"
-        text="Select a picture"
-      />
-    </VStack>
+    <Center h="full">
+      <VStack space={8}>
+        <UploadImagePressable
+          onPress={() => uploadImage('take')}
+          icon="camera"
+          text="Take a picture"
+        />
+        <Text
+          textAlign="center"
+          textTransform="uppercase"
+          letterSpacing={2}
+          fontSize="lg"
+        >
+          or...
+        </Text>
+        <UploadImagePressable
+          onPress={() => uploadImage('select')}
+          icon="folder"
+          text="Select a picture"
+        />
+      </VStack>
+    </Center>
   );
 };

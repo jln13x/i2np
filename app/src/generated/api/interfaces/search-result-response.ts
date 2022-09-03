@@ -25,6 +25,12 @@ export interface SearchResultResponse {
      * @type {string}
      * @memberof SearchResultResponse
      */
+    'type': SearchResultResponseTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof SearchResultResponse
+     */
     'id': string;
     /**
      * 
@@ -45,4 +51,12 @@ export interface SearchResultResponse {
      */
     'emoji': string | null;
 }
+
+export const SearchResultResponseTypeEnum = {
+    Page: 'page',
+    Database: 'database'
+} as const;
+
+export type SearchResultResponseTypeEnum = typeof SearchResultResponseTypeEnum[keyof typeof SearchResultResponseTypeEnum];
+
 

@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     PrismaModule,
     UserModule,
     EventEmitterModule.forRoot(),
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [
