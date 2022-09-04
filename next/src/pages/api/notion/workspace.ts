@@ -5,8 +5,6 @@ import { hash } from "../../../server/hash";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = req.headers["X-Notion-Access-Token".toLowerCase()];
 
-  console.log(req.headers);
-
   if (!token) {
     return res.status(401).json({ error: "Unauthorized" });
   }

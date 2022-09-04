@@ -1,6 +1,7 @@
 import { ApiError, axios } from '@/lib/axios';
-import * as SecureStore from 'expo-secure-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
+import { accessTokenKeys } from '../queries/query-key-factory';
 
 interface LoginInput {
   code: string;
@@ -13,7 +14,7 @@ interface Response {
 export const useLogin = () => {
   const qc = useQueryClient();
   return useMutation<Response, ApiError, LoginInput>({
-    mutationKey: 'login',
+    mutationKey: ['login'],
     mutationFn: async ({ code }) => {
       const response = await axios.post(`/login`, {
         code,
@@ -22,7 +23,7 @@ export const useLogin = () => {
     },
     onSuccess: ({ accessToken }) => {
       SecureStore.setItemAsync('access-token', accessToken);
-      qc.invalidateQueries('access-token');
+      qc.invalidateQueries(accessTokenKeys.accessToken);
     },
   });
 };

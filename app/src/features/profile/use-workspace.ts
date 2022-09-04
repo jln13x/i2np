@@ -24,8 +24,6 @@ export const useWorkspace = () => {
         },
       });
 
-      console.log({ response });
-
       return response.data as Response;
     },
   });

@@ -26,6 +26,10 @@ type AccessTokenResponse = z.infer<typeof accessTokenResponseSchema>;
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const code = req.body.code;
 
+  console.log({
+    code,
+  });
+
   if (!code) {
     return res.status(400).json({ error: "Missing code" });
   }
@@ -59,6 +63,10 @@ const exchangeGrant = async (code: string) => {
   });
 
   const data = await response.json();
+
+  console.log({
+    data
+  })
 
   return accessTokenResponseSchema.parse(data);
 };

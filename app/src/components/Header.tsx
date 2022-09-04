@@ -12,15 +12,13 @@ export const Header = () => {
   const handleNavigateHome = () => navigate('Home');
   const { name, person } = useUser();
 
-
   const canNavigateBack = canGoBack();
 
   return (
     <Container safeArea={true} py={4}>
-      <HStack justifyContent="space-between">
+      <HStack justifyContent="space-between" alignItems="center">
         <IconButton
           colorScheme="indigo"
-          alignSelf="flex-start"
           onPress={goBack}
           icon={<Icon as={MaterialCommunityIcons} name="chevron-left" />}
           isDisabled={!canNavigateBack}

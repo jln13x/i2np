@@ -13,7 +13,7 @@ import {
   Text,
   VStack,
 } from 'native-base';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export const DevTools = () => {
   const [show, setShow] = useState(false);
@@ -23,6 +23,9 @@ export const DevTools = () => {
 
   const toggleShow = () => setShow((show) => !show);
   const [showStores, setShowStores] = useState(false);
+
+  const env = process.env.NODE_ENV;
+  if (env !== 'development') return null;
 
   const ToggleButton = () => (
     <Fab

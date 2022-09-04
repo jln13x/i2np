@@ -10,7 +10,7 @@ export const Workspace = () => {
   const { promptAsync } = useAuthorize();
   const { mutate: login } = useLogin();
   const { data } = useWorkspace();
- 
+
   if (!data) return null;
 
   const workspaceName = data?.workspaceName || DEFAULT_WORKSPACE_NAME;

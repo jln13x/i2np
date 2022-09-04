@@ -1,6 +1,6 @@
 import { BrandLogo } from '@/components/BrandLogo';
 import { NotionButton } from '@/components/button/NotionButton';
-import { PrimaryButton } from '@/components/button/PrimaryButton';
+import { env } from '@/env';
 import { useAuthorize } from '@/features/auth/mutations/use-authorize';
 import { Box, Center, Text } from 'native-base';
 import { Layout } from '../components/Layout';
@@ -39,9 +39,6 @@ export const LoginScreen = () => {
             <NotionButton text="Login with Notion" onPress={loginWithNotion} />
           )}
         </Box>
-        <PrimaryButton mt={8} onPress={() => login({ code: '123' })}>
-          Force login
-        </PrimaryButton>
       </Center>
     </Layout>
   );

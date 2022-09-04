@@ -4,7 +4,6 @@ import { Input } from '@/components/Input';
 import { Layout } from '@/components/Layout';
 import { Error } from '@/components/states/Error';
 import { Title } from '@/components/Title';
-import { CreatePageRequestParentTypeEnum } from '@/generated/api/interfaces';
 import { useSelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
 import { getTitle } from '@/utils/get-title';
@@ -36,27 +35,17 @@ export const CreatePageScreen = () => {
     return null;
   }
 
-  const {
-    id: parentPageId,
-    url,
-    icon,
-    object: type,
-  } = selectedResult;
+  const { id: parentPageId, url, icon, object: type } = selectedResult;
 
   const emoji = icon?.type === 'emoji' ? icon.emoji : null;
   const parentTitle = getTitle(selectedResult);
 
   const handleCreatePage = () => {
-    const parentType =
-      type === CreatePageRequestParentTypeEnum.Page
-        ? CreatePageRequestParentTypeEnum.Page
-        : CreatePageRequestParentTypeEnum.Database;
-
     createPage({
       parentId: parentPageId,
       text: selectedText,
       title,
-      parentType,
+      parentType: type,
     });
   };
 

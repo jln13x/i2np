@@ -1,5 +1,4 @@
 import { useAuthenticatedNotionClient } from '@/features/auth/AuthenticatedClientProvider';
-import { ApiError } from '@/lib/axios';
 import { textToNotionParagraphs } from '@/utils/text-to-notion-paragraphs';
 import { useMutation } from '@tanstack/react-query';
 
@@ -11,7 +10,7 @@ interface Request {
 export const useAppendToPage = () => {
   const { client } = useAuthenticatedNotionClient();
 
-  return useMutation<unknown, ApiError, Request>({
+  return useMutation<unknown, unknown, Request>({
     mutationFn: (data) => {
       const formatted = textToNotionParagraphs(data.text);
 
