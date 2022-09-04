@@ -2,15 +2,16 @@ import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { Container } from '@/components/Container';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { Title } from '@/components/Title';
-import { SearchResultResponse } from '@/generated/api/interfaces';
+import { SelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
+import { getTitle } from '@/utils/get-title';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Icon, Text, VStack } from 'native-base';
 import React from 'react';
 
 interface DatabaseActionsProps {
-  database: SearchResultResponse;
+  database: SelectedResult;
 }
 
 export const DatabaseActions: React.FC<DatabaseActionsProps> = ({
@@ -19,7 +20,10 @@ export const DatabaseActions: React.FC<DatabaseActionsProps> = ({
   const { navigate } = useNavigation();
   const { selectedText: text } = useSelectedText();
 
-  const { type, title, emoji } = database;
+  const { object: type, icon } = database;
+
+  const emoji = icon?.type === 'emoji' ? `${icon.emoji}` : null;
+  const title = getTitle(database);
 
   if (type !== 'database') {
     navigate('SearchPageOrDatabase');

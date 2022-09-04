@@ -10,7 +10,8 @@ export const Header = () => {
   const { navigate, canGoBack, goBack } = useNavigation();
   const handleNavigateProfile = () => navigate('Profile');
   const handleNavigateHome = () => navigate('Home');
-  const { name } = useUser();
+  const { name, person } = useUser();
+
 
   const canNavigateBack = canGoBack();
 
@@ -29,7 +30,7 @@ export const Header = () => {
           <BrandLogo size="small" />
         </Pressable>
         <Pressable onPress={handleNavigateProfile}>
-          <Avatar letter={name.charAt(0)} />
+          <Avatar letter={name?.charAt(0) || person.email.charAt(0)} />
         </Pressable>
       </HStack>
     </Container>

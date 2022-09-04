@@ -2,8 +2,9 @@ import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { Container } from '@/components/Container';
 import { EditDetectedText } from '@/components/EditDetectedText';
 import { Error } from '@/components/states/Error';
-import { SearchResultResponse } from '@/generated/api/interfaces';
+import { SelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
+import { getTitle } from '@/utils/get-title';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Center, Icon, ScrollView, Text, VStack } from 'native-base';
@@ -11,7 +12,7 @@ import { useAppendToPage } from '../mutations/use-append-to-page';
 import { AddToPageSuccess } from './AddToPageSuccess';
 
 interface PageActionsProps {
-  page: SearchResultResponse;
+  page: SelectedResult;
 }
 
 export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
@@ -23,7 +24,10 @@ export const PageActions: React.FC<PageActionsProps> = ({ page }) => {
     reset: resetAppendToPage,
   } = useAppendToPage();
   const { navigate } = useNavigation();
-  const { title, type, id } = page;
+  const { object: type, id } = page;
+
+  const title = getTitle(page);
+
   const { selectedText: text } = useSelectedText();
 
   if (type !== 'page') {

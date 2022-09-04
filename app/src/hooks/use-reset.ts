@@ -1,6 +1,6 @@
 import { useSelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const useReset = () => {
   const { reset: resetSelectedText } = useSelectedText();

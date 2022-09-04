@@ -1,7 +1,7 @@
-import { SearchResultResponse } from '@/generated/api/interfaces';
+import type { DatabaseObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import create from 'zustand';
 
-type SelectedResult = SearchResultResponse;
+export type SelectedResult = PageObjectResponse | DatabaseObjectResponse
 
 interface SelectedResultState {
   selectedResult?: SelectedResult;

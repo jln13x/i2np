@@ -1,7 +1,7 @@
 import { userKeys } from '@/features/user/queries/query-key-factory';
 import { axios } from '@/lib/axios';
 import * as SecureStore from 'expo-secure-store';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { API_JWT_KEY } from '../constants';
 import { jwtKeys } from './query-key-factory';
 

@@ -1,10 +1,10 @@
-import { SearchResultsResponse } from '@/generated/api/interfaces';
+import type { SearchResponse } from '@notionhq/client/build/src/api-endpoints';
 import { VStack } from 'native-base';
 import React from 'react';
 import { SearchResult } from './SearchResult';
 
 interface SearchResultsProps {
-  results: SearchResultsResponse['results'];
+  results: SearchResponse['results'];
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {

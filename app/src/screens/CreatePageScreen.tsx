@@ -7,6 +7,7 @@ import { Title } from '@/components/Title';
 import { CreatePageRequestParentTypeEnum } from '@/generated/api/interfaces';
 import { useSelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
+import { getTitle } from '@/utils/get-title';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Center, Icon, Link, Text } from 'native-base';
@@ -37,11 +38,13 @@ export const CreatePageScreen = () => {
 
   const {
     id: parentPageId,
-    title: parentTitle,
-    emoji,
     url,
-    type,
+    icon,
+    object: type,
   } = selectedResult;
+
+  const emoji = icon?.type === 'emoji' ? icon.emoji : null;
+  const parentTitle = getTitle(selectedResult);
 
   const handleCreatePage = () => {
     const parentType =
@@ -63,7 +66,7 @@ export const CreatePageScreen = () => {
     return (
       <Layout>
         <Center h="full">
-          <CreatePageSuccess pageUrl={url} />;
+          <CreatePageSuccess pageUrl={url} />
         </Center>
       </Layout>
     );

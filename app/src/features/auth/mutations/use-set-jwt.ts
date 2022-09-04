@@ -1,5 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { API_JWT_KEY } from '../constants';
 import { jwtKeys } from '../queries/query-key-factory';
 

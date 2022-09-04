@@ -34,21 +34,3 @@ export class VisionService implements OcrService {
     return new OcrResponse(detectedText);
   }
 }
-
-/**
- *     for (const node of textAnnotations) {
-      const vertices = node.boundingPoly?.vertices;
-      const description = node.description;
-
-      if (!vertices || !description) continue;
-
-      const validVertices = vertices.filter(
-        (vertex) => vertex.x && vertex.y,
-      ) as Vertex[];
-
-      textNodes.push({
-        text: description,
-        vertices: validVertices,
-      });
-    }
- */

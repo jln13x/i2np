@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { useWorkspace } from '@/features/profile/use-workspace';
 import {
   HomeScreen,
   ResultScreen,
@@ -13,6 +14,9 @@ import { AuthenticatedScreensStack } from '../types';
 const Stack = createNativeStackNavigator<AuthenticatedScreensStack>();
 
 export const AuthenticatedScreens = () => {
+  // prefetch workspace query
+  useWorkspace();
+
   return (
     <Stack.Navigator>
       <Stack.Screen

@@ -1,6 +1,7 @@
 import { useSelectedResult } from '@/stores/selected-result';
 import { useSelectedText } from '@/stores/selected-text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Query, QueryStatus, useQueryClient } from '@tanstack/react-query';
 import {
   Badge,
   Box,
@@ -13,7 +14,6 @@ import {
   VStack,
 } from 'native-base';
 import React, { useState } from 'react';
-import { Query, QueryStatus, useQueryClient } from 'react-query';
 
 export const DevTools = () => {
   const [show, setShow] = useState(false);
@@ -113,7 +113,12 @@ const SingleQuery: React.FC<SingleQueryProps> = ({ query }) => {
       </HStack>
       {showData && (
         <Box bg="gray.100" p={2} w="full" rounded="md">
-          <Text>{JSON.stringify(query.state.data, null, 2)}</Text>
+          {query.state.data && (
+            <Text>{JSON.stringify(query.state.data, null, 2)}</Text>
+          )}
+          {query.state.error && (
+            <Text>{JSON.stringify(query.state.error, null, 2)}</Text>
+          )}
         </Box>
       )}
     </VStack>

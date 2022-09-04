@@ -18,13 +18,15 @@ export const SearchPageOrDatabaseScreen = () => {
   const debounce = useDebounce();
   const {
     data: searchResults,
-    isLoading,
     isError: isSearchError,
     remove: resetSearch,
+    fetchStatus
   } = usePageDatabaseSearch(search);
 
   const { selectedText } = useSelectedText();
   const { navigate } = useNavigation();
+
+  const isLoading = fetchStatus === "fetching";
 
   if (selectedText === undefined) {
     navigate('UploadImage');
@@ -52,6 +54,7 @@ export const SearchPageOrDatabaseScreen = () => {
     );
   }
 
+
   return (
     <Layout>
       <Container>
@@ -69,15 +72,18 @@ export const SearchPageOrDatabaseScreen = () => {
             />
           </VStack>
 
-          {results && results.length > 0 && (
+          {results && results?.length > 0 && (
             <VStack mt={8} flex={1}>
               <Text textTransform="uppercase" fontSize="xs" color="dark.200">
                 choose a page or database
               </Text>
-              <ScrollView mt={1} contentContainerStyle={{
-                display: 'flex',
-                justifyContent: "space-between"
-              }}>
+              <ScrollView
+                mt={1}
+                contentContainerStyle={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <SearchResults results={results} />
                 <Text fontSize="2xs" color="dark.400" mt={1} py={4} bg="white">
                   Showing only the top 3 matches

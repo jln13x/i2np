@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import { useEffect } from 'react';
 import { AppState, AppStateStatus, Platform } from 'react-native';
-import { focusManager, onlineManager, QueryClientProvider } from 'react-query';
+import { focusManager, onlineManager, QueryClientProvider } from '@tanstack/react-query';
 
 onlineManager.setEventListener((setOnline) => {
   return NetInfo.addEventListener((state) => {

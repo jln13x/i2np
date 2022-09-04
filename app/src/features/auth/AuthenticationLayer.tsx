@@ -3,16 +3,21 @@ import {
   AuthenticatedScreens,
   UnauthenticatedScreens,
 } from '@/features/navigation/components';
+import { Client } from '@notionhq/client';
+import { useIsMutating } from '@tanstack/react-query';
 import { Center } from 'native-base';
-import { PropsWithChildren } from 'react';
-import { useIsMutating } from 'react-query';
 import { useMeQuery } from '../user/queries/use-me-query';
-import { useJwt } from './queries/use-jwt';
+import { AuthenticatedNotionClientProvider } from './AuthenticatedClientProvider';
+import { useAccessToken } from './queries/use-access-token';
 
-export const AuthenticationLayer: React.FC<PropsWithChildren> = () => {
-  const { data: jwt } = useJwt();
-  const { data: me, isLoading: isLoadingMe } = useMeQuery(jwt);
-  const isLoggingIn = useIsMutating('login');
+export const AuthenticationLayer: React.FC = () => {
+  const { data: accessToken } = useAccessToken();
+  const isLoggingIn = useIsMutating(['login']);
+  const isLoggingOut = useIsMutating(['logout']);
+
+  const { data: me, fetchStatus } = useMeQuery(accessToken || null);
+
+  const isLoadingMe = fetchStatus === 'fetching' && !me;
 
   if (isLoadingMe || isLoggingIn) {
     return (
@@ -22,7 +27,15 @@ export const AuthenticationLayer: React.FC<PropsWithChildren> = () => {
     );
   }
 
-  if (!me) return <UnauthenticatedScreens />;
+  if (!me || !accessToken || isLoggingOut) return <UnauthenticatedScreens />;
 
-  return <AuthenticatedScreens />;
+  const client = new Client({
+    auth: accessToken,
+  });
+
+  return (
+    <AuthenticatedNotionClientProvider client={client}>
+      <AuthenticatedScreens />
+    </AuthenticatedNotionClientProvider>
+  );
 };

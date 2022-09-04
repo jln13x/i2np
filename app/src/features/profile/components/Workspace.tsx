@@ -1,19 +1,19 @@
 import { PrimaryButton } from '@/components/button/PrimaryButton';
 import { useAuthorize } from '@/features/auth/mutations/use-authorize';
 import { useLogin } from '@/features/auth/mutations/use-login';
-import { useUser } from '@/features/user/queries/use-user';
 import { Box, HStack, Text } from 'native-base';
+import { useWorkspace } from '../use-workspace';
 
 const DEFAULT_WORKSPACE_NAME = 'My workspace';
 
 export const Workspace = () => {
   const { promptAsync } = useAuthorize();
   const { mutate: login } = useLogin();
-  const { workspace } = useUser();
+  const { data } = useWorkspace();
+ 
+  if (!data) return null;
 
-  const { name } = workspace;
-
-  const workspaceName = name || DEFAULT_WORKSPACE_NAME;
+  const workspaceName = data?.workspaceName || DEFAULT_WORKSPACE_NAME;
 
   const handleChangePermission = async () => {
     const res = await promptAsync({

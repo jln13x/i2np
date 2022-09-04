@@ -13,7 +13,7 @@ export const ResultScreen = () => {
     return null;
   }
 
-  if (pageOrDatabase.type === 'page') {
+  if (pageOrDatabase.object === 'page') {
     return (
       <Layout>
         <PageActions page={pageOrDatabase} />
@@ -21,7 +21,7 @@ export const ResultScreen = () => {
     );
   }
 
-  if (pageOrDatabase.type === 'database') {
+  if (pageOrDatabase.object === 'database') {
     return (
       <Layout>
         <DatabaseActions database={pageOrDatabase} />

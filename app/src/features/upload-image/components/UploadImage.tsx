@@ -45,7 +45,7 @@ export const UploadImage = () => {
 
     processImage(
       {
-        base64Image: image,
+        image,
       },
       {
         onSuccess: ({ detectedText }) => {
@@ -64,7 +64,11 @@ export const UploadImage = () => {
   if (processingImageFailed)
     return (
       <Center h="full">
-        <Error retry={handleReset} title="Couldn't process your image!" message="Make sure you choose an image with text in it."/>
+        <Error
+          retry={handleReset}
+          title="Couldn't process your image!"
+          message="Make sure you choose an image with text in it."
+        />
       </Center>
     );
 
