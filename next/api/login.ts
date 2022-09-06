@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { z } from "zod";
-import { prisma } from "../../server/db/prisma";
-import { hash } from "../../server/hash";
+import { prisma } from "../src/server/db/prisma";
+import { hash } from "../src/server/hash";
 
 export const accessTokenResponseSchema = z.object({
   access_token: z.string(),
@@ -23,12 +23,8 @@ export const accessTokenResponseSchema = z.object({
 
 type AccessTokenResponse = z.infer<typeof accessTokenResponseSchema>;
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const code = req.body.code;
-
-  console.log({
-    code,
-  });
+const handler = async (req: VercelRequest, res: VercelResponse) => {
+  const code = req.body?.code;
 
   if (!code) {
     return res.status(400).json({ error: "Missing code" });
@@ -63,10 +59,6 @@ const exchangeGrant = async (code: string) => {
   });
 
   const data = await response.json();
-
-  console.log({
-    data
-  })
 
   return accessTokenResponseSchema.parse(data);
 };

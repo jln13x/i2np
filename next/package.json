@@ -1,21 +1,16 @@
 {
   "private": true,
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  },
   "dependencies": {
     "@google-cloud/vision": "^2.4.2",
     "@prisma/client": "^4.3.1",
-    "next": "latest",
     "prisma": "^4.3.1",
     "typescript": "^4.8.2",
     "zod": "^3.18.0"
   },
   "devDependencies": {
     "@types/node": "^18.7.14",
-    "@types/react": "^18.0.18"
+    "@types/react": "^18.0.18",
+    "@vercel/node": "^2.5.13"
   },
   "prisma": {
     "schema": "./src/server/db/schema.prisma"

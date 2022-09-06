@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import vision from "@google-cloud/vision";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: VercelRequest, res: VercelResponse) => {
   const image = req.body.image;
 
   if (!image) {

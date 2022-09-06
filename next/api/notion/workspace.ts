@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../server/db/prisma";
-import { hash } from "../../../server/hash";
+import type {VercelRequest, VercelResponse} from "@vercel/node"
+import { prisma } from "../../src/server/db/prisma";
+import { hash } from "../../src/server/hash";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: VercelRequest, res: VercelResponse) => {
   const token = req.headers["X-Notion-Access-Token".toLowerCase()];
 
   if (!token) {

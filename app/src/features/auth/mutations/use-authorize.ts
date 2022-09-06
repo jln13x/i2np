@@ -2,9 +2,6 @@ import { env } from '@/env';
 import { useAuthRequest } from 'expo-auth-session';
 
 export const useAuthorize = () => {
-  console.log({
-    red: env.NOTION_REDIRECT_URI,
-  })
 
   const [_, __, promptAsync] = useAuthRequest(
     {
